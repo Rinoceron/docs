@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rhino Asset Capital</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="header">
+        <div class="container nav">
+            <div class="logo">RHINO ASSET CAPITAL</div>
+
+            <nav class="nav-links">
+                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#niveles">Niveles</a>
+                <a href="#simulador">Simulador</a>
+                <a href="#faq">FAQ</a>
+            </nav>
+
+            <a class="btn btn-primary" href="#simulador">Aplicar</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <span class="badge">Préstamos por niveles</span>
+                    <h1>Empieza en Nivel 1 y sube al siguiente cuando terminas de pagar</h1>
+                    <p class="lead">
+                        La primera vez todos empiezan en Nivel 1. Cuando pagas tu préstamo completo,
+                        puedes renovar y desbloquear el siguiente nivel.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#simulador">Simular mi nivel</a>
+                        <a class="btn btn-secondary" href="#niveles">Ver niveles</a>
+                    </div>
+
+                    <div class="hero-points">
+                        <div class="mini-card">
+                            <strong>Nivel 1 primero</strong>
+                            <span class="muted">todos empiezan igual</span>
+                        </div>
+                        <div class="mini-card">
+                            <strong>Subes pagando</strong>
+                            <span class="muted">sin saltarte niveles</span>
+                        </div>
+                        <div class="mini-card">
+                            <strong>Renovación simple</strong>
+                            <span class="muted">al terminar, desbloqueas el siguiente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sim-card hero-side-card">
+                    <h3>Regla del producto</h3>
+                    <p>
+                        Esta es la lógica que verá el usuario:
+                    </p>
+
+                    <div class="rule-box">
+                        <div class="rule-line">
+                            <strong>Nuevo cliente</strong>
+                            <span>Solo Nivel 1</span>
+                        </div>
+                        <div class="rule-line">
+                            <strong>Cliente que ya pagó</strong>
+                            <span>Puede pedir el siguiente nivel</span>
+                        </div>
+                        <div class="rule-line">
+                            <strong>Cliente con préstamo activo</strong>
+                            <span>No puede renovar todavía</span>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-primary full-width" href="#simulador">Comprobar elegibilidad</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="como-funciona">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Cómo funciona</h2>
+                    <p>La progresión está diseñada para que el cliente empiece pequeño y gane acceso al siguiente nivel
+                        al pagar.</p>
+                </div>
+
+                <div class="steps">
+                    <div class="card">
+                        <div class="step-no">1</div>
+                        <h3>Primera solicitud</h3>
+                        <p>Si es tu primera vez, solo puedes aplicar al Nivel 1.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="step-no">2</div>
+                        <h3>Pagas completo</h3>
+                        <p>Cuando terminas de pagar el préstamo actual, quedas habilitado para renovar.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="step-no">3</div>
+                        <h3>Subes de nivel</h3>
+                        <p>La siguiente solicitud solo puede ser para el siguiente nivel disponible.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="niveles">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Niveles del producto</h2>
+                    <p>Puedes ajustar montos, plazos y APR de cada nivel cuando quieras.</p>
+                </div>
+
+                <div class="levels-grid">
+                    <div class="card level-card">
+                        <span class="level-badge">Nivel 1</span>
+                        <h3>$50</h3>
+                        <p>Plazo máximo: 3 meses</p>
+                        <p>APR: 21%</p>
+                    </div>
+
+                    <div class="card level-card">
+                        <span class="level-badge">Nivel 2</span>
+                        <h3>$100</h3>
+                        <p>Plazo máximo: 4 meses</p>
+                        <p>APR: 20%</p>
+                    </div>
+
+                    <div class="card level-card">
+                        <span class="level-badge">Nivel 3</span>
+                        <h3>$200</h3>
+                        <p>Plazo máximo: 5 meses</p>
+                        <p>APR: 19%</p>
+                    </div>
+
+                    <div class="card level-card">
+                        <span class="level-badge">Nivel 4</span>
+                        <h3>$400</h3>
+                        <p>Plazo máximo: 6 meses</p>
+                        <p>APR: 18%</p>
+                    </div>
+
+                    <div class="card level-card">
+                        <span class="level-badge">Nivel 5</span>
+                        <h3>$800</h3>
+                        <p>Plazo máximo: 7 meses</p>
+                        <p>APR: 17%</p>
+                    </div>
+
+                    <div class="card level-card">
+                        <span class="level-badge">Nivel 6</span>
+                        <h3>$1,600</h3>
+                        <p>Plazo máximo: 9 meses</p>
+                        <p>APR: 16%</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="simulador">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Simulador de elegibilidad</h2>
+                    <p>Primero vemos qué nivel te corresponde. Luego calculamos ese préstamo.</p>
+                </div>
+
+                <div class="sim-layout">
+                    <div class="sim-card">
+                        <h3>1. Tu situación</h3>
+                        <p>Selecciona si eres cliente nuevo o si ya terminaste un préstamo anterior.</p>
+
+                        <div class="form-group">
+                            <label for="customerType">Tipo de cliente</label>
+                            <select id="customerType">
+                                <option value="new">Primera vez</option>
+                                <option value="returning">Ya fui cliente y quiero renovar</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastCompletedLevel">Último nivel pagado completamente</label>
+                            <select id="lastCompletedLevel" disabled>
+                                <option value="0">Ninguno</option>
+                                <option value="1">Nivel 1</option>
+                                <option value="2">Nivel 2</option>
+                                <option value="3">Nivel 3</option>
+                                <option value="4">Nivel 4</option>
+                                <option value="5">Nivel 5</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hasActiveLoan">¿Tienes un préstamo activo ahora mismo?</label>
+                            <select id="hasActiveLoan">
+                                <option value="no">No</option>
+                                <option value="yes">Sí</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sim-card">
+                        <h3>2. Nivel habilitado</h3>
+                        <p>Esto lo calcula la regla del producto.</p>
+
+                        <div class="result-panel">
+                            <span class="result-label">Nivel disponible</span>
+                            <strong id="eligibleLevelName">Nivel 1</strong>
+                        </div>
+
+                        <div class="result-panel">
+                            <span class="result-label">Monto máximo</span>
+                            <strong id="eligibleAmount">$50</strong>
+                        </div>
+
+                        <div class="result-panel">
+                            <span class="result-label">Estado</span>
+                            <strong id="eligibilityStatus">Puedes aplicar</strong>
+                        </div>
+
+                        <p id="eligibilityMessage" class="helper-text">
+                            Como es tu primera vez, solo puedes aplicar al Nivel 1.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="sim-card calculator-card">
+                    <h3>3. Simulación del préstamo permitido</h3>
+                    <p>El monto y el plazo se limitan automáticamente al nivel que te corresponde.</p>
+
+                    <div class="sim-row">
+                        <label>
+                            <span>Monto</span>
+                            <strong id="loanAmountLabel">$50</strong>
+                        </label>
+                        <input id="loanAmount" type="range" min="50" max="50" step="50" value="50" />
+                    </div>
+
+                    <div class="sim-row">
+                        <label>
+                            <span>Meses</span>
+                            <strong id="loanTermLabel">3</strong>
+                        </label>
+                        <input id="loanTerm" type="range" min="2" max="3" step="1" value="3" />
+                    </div>
+
+                    <div class="sim-grid">
+                        <div class="sim-box">
+                            <span>Nivel</span>
+                            <strong id="summaryLevel">Nivel 1</strong>
+                        </div>
+                        <div class="sim-box">
+                            <span>APR</span>
+                            <strong id="summaryApr">21%</strong>
+                        </div>
+                        <div class="sim-box">
+                            <span>Pago mensual</span>
+                            <strong id="monthlyPayment">$0.00</strong>
+                        </div>
+                        <div class="sim-box">
+                            <span>Total a pagar</span>
+                            <strong id="totalPayment">$0.00</strong>
+                        </div>
+                    </div>
+
+                    <a class="btn btn-primary full-width" href="#contacto">Quiero aplicar a mi nivel</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Preguntas frecuentes</h2>
+                    <p>Estas FAQs ya explican la regla de progresión por niveles.</p>
+                </div>
+
+                <div class="faq-grid">
+                    <details>
+                        <summary>¿Puedo entrar directamente a un nivel más alto?</summary>
+                        <p>No. La primera vez solo puedes aplicar al Nivel 1.</p>
+                    </details>
+
+                    <details>
+                        <summary>¿Cuándo puedo renovar?</summary>
+                        <p>Cuando hayas terminado de pagar el préstamo anterior por completo.</p>
+                    </details>
+
+                    <details>
+                        <summary>¿Puedo pedir dos niveles a la vez?</summary>
+                        <p>No. Primero debes cerrar el nivel actual y luego pasar al siguiente.</p>
+                    </details>
+
+                    <details>
+                        <summary>¿Qué pasa si todavía tengo un préstamo activo?</summary>
+                        <p>No podrás renovar hasta que ese préstamo esté totalmente pagado.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="container">
+                <div class="cta-band">
+                    <div>
+                        <h2>Empieza pequeño. Sube pagando.</h2>
+                        <p>Una progresión simple hace que el producto sea fácil de entender para el usuario.</p>
+                    </div>
+                    <a class="btn btn-secondary" href="#simulador">Ver mi nivel</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto">
+        <div class="container footer-grid">
+            <div>
+                <strong>Rhino Asset Capital</strong><br />
+                <span>contacto@rhinoassetcapital.com</span><br />
+                <span>+1 000 000 0000</span>
+            </div>
+            <div>
+                <a href="#">Privacidad</a> ·
+                <a href="#">Términos</a> ·
+                <a href="#simulador">Aplicar</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
