@@ -1,339 +1,570 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rhino Asset Capital</title>
+    <meta name="description"
+        content="Buy Bitcoin today and pay over time with flexible plans from Rhino Asset Capital." />
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <header class="header">
+    <header class="site-header">
         <div class="container nav">
-            <div class="logo">RHINO ASSET CAPITAL</div>
+            <a class="brand" href="#top" aria-label="Rhino Asset Capital home">
+                <img class="brand-mark" src="../public/Logo no background.png" alt="Rhino Asset Capital logo" />
+                <span class="brand-name">Rhino Asset Capital</span>
+            </a>
 
             <nav class="nav-links">
-                <a href="#como-funciona">Cómo funciona</a>
-                <a href="#niveles">Niveles</a>
-                <a href="#simulador">Simulador</a>
-                <a href="#faq">FAQ</a>
+                <a href="#product" data-i18n="nav_product">Product</a>
+                <a href="#how" data-i18n="nav_how">How it works</a>
+                <a href="#fees" data-i18n="nav_fees">Fees</a>
+                <a href="#faq" data-i18n="nav_faq">FAQ</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+                <a href="#about" data-i18n="nav_about">About</a>
             </nav>
 
-            <a class="btn btn-primary" href="#simulador">Aplicar</a>
+            <div class="nav-actions">
+                <div class="lang-toggle" role="group" aria-label="Language switcher">
+                    <button class="lang-btn" type="button" data-lang="en" aria-pressed="true">EN</button>
+                    <button class="lang-btn" type="button" data-lang="es" aria-pressed="false">ES</button>
+                </div>
+
+                <a class="btn btn-primary"
+                    href="mailto:apply@rhino-asset.com?subject=Application%20-%20Rhino%20Asset">
+                    <span data-i18n="nav_cta">Apply</span>
+                </a>
+            </div>
         </div>
     </header>
 
     <main>
-        <section class="hero">
+        <section id="top" class="hero section">
             <div class="container hero-grid">
-                <div>
-                    <span class="badge">Préstamos por niveles</span>
-                    <h1>Empieza en Nivel 1 y sube al siguiente cuando terminas de pagar</h1>
-                    <p class="lead">
-                        La primera vez todos empiezan en Nivel 1. Cuando pagas tu préstamo completo,
-                        puedes renovar y desbloquear el siguiente nivel.
+                <div class="hero-copy">
+                    <div class="eyebrow" data-i18n="hero_eyebrow">Rhino Asset Capital</div>
+                    <h1 data-i18n="hero_title">Buy Bitcoin Today. Pay Over Time.</h1>
+                    <p class="lead" data-i18n="hero_lead">
+                        Finance from $50 to 1 Bitcoin with flexible payment plans. Lock in today's price, pay monthly
+                        like a car.
                     </p>
 
                     <div class="hero-actions">
-                        <a class="btn btn-primary" href="#simulador">Simular mi nivel</a>
-                        <a class="btn btn-secondary" href="#niveles">Ver niveles</a>
+                        <a class="btn btn-primary"
+                            href="mailto:apply@rhino-asset.com?subject=Application%20-%20Rhino%20Asset">
+                            <span data-i18n="hero_cta_primary">Apply</span>
+                        </a>
+                        <a class="btn btn-secondary" href="#product">
+                            <span data-i18n="hero_cta_secondary">See product</span>
+                        </a>
                     </div>
 
-                    <div class="hero-points">
-                        <div class="mini-card">
-                            <strong>Nivel 1 primero</strong>
-                            <span class="muted">todos empiezan igual</span>
-                        </div>
-                        <div class="mini-card">
-                            <strong>Subes pagando</strong>
-                            <span class="muted">sin saltarte niveles</span>
-                        </div>
-                        <div class="mini-card">
-                            <strong>Renovación simple</strong>
-                            <span class="muted">al terminar, desbloqueas el siguiente</span>
-                        </div>
+                    <div class="hero-note" data-i18n="hero_disclaimer">
+                        Not a loan offer. Application and approval are required by law.
                     </div>
                 </div>
 
-                <div class="sim-card hero-side-card">
-                    <h3>Regla del producto</h3>
-                    <p>
-                        Esta es la lógica que verá el usuario:
-                    </p>
-
-                    <div class="rule-box">
-                        <div class="rule-line">
-                            <strong>Nuevo cliente</strong>
-                            <span>Solo Nivel 1</span>
-                        </div>
-                        <div class="rule-line">
-                            <strong>Cliente que ya pagó</strong>
-                            <span>Puede pedir el siguiente nivel</span>
-                        </div>
-                        <div class="rule-line">
-                            <strong>Cliente con préstamo activo</strong>
-                            <span>No puede renovar todavía</span>
-                        </div>
-                    </div>
-
-                    <a class="btn btn-primary full-width" href="#simulador">Comprobar elegibilidad</a>
+                <div class="hero-visual" aria-hidden="true">
+                    <img class="hero-image-exact" src="../artifacts/landing-hero.png" alt="Golden rhino running forward" />
                 </div>
             </div>
         </section>
 
-        <section id="como-funciona">
+        <section id="product" class="section">
             <div class="container">
                 <div class="section-head">
-                    <h2>Cómo funciona</h2>
-                    <p>La progresión está diseñada para que el cliente empiece pequeño y gane acceso al siguiente nivel
-                        al pagar.</p>
+                    <h2 data-i18n="product_title">What is the product?</h2>
+                    <p data-i18n="product_sub">A Bitcoin equity loan helps you buy Bitcoin now and pay over time.</p>
                 </div>
 
-                <div class="steps">
-                    <div class="card">
-                        <div class="step-no">1</div>
-                        <h3>Primera solicitud</h3>
-                        <p>Si es tu primera vez, solo puedes aplicar al Nivel 1.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="step-no">2</div>
-                        <h3>Pagas completo</h3>
-                        <p>Cuando terminas de pagar el préstamo actual, quedas habilitado para renovar.</p>
-                    </div>
-
-                    <div class="card">
-                        <div class="step-no">3</div>
-                        <h3>Subes de nivel</h3>
-                        <p>La siguiente solicitud solo puede ser para el siguiente nivel disponible.</p>
-                    </div>
+                <div class="feature-grid">
+                    <article class="feature">
+                        <h3 data-i18n="product_f1_title">Buy now</h3>
+                        <p data-i18n="product_f1_body">Lock in today's Bitcoin price and start with a small amount.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="product_f2_title">Pay over time</h3>
+                        <p data-i18n="product_f2_body">Repay in monthly stablecoin transfers based on your plan.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="product_f3_title">Grow step by step</h3>
+                        <p data-i18n="product_f3_body">Begin from $50 and build toward larger financing levels.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="product_f4_title">Start bigger if ready</h3>
+                        <p data-i18n="product_f4_body">You can request up to $1,000 with a 10% downpayment.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section id="niveles">
+        <section id="how" class="section alt-bg">
             <div class="container">
                 <div class="section-head">
-                    <h2>Niveles del producto</h2>
-                    <p>Puedes ajustar montos, plazos y APR de cada nivel cuando quieras.</p>
+                    <h2 data-i18n="how_title">How it works</h2>
+                    <p data-i18n="how_sub">Simple steps anyone can understand.</p>
                 </div>
 
-                <div class="levels-grid">
-                    <div class="card level-card">
-                        <span class="level-badge">Nivel 1</span>
-                        <h3>$50</h3>
-                        <p>Plazo máximo: 3 meses</p>
-                        <p>APR: 21%</p>
-                    </div>
-
-                    <div class="card level-card">
-                        <span class="level-badge">Nivel 2</span>
-                        <h3>$100</h3>
-                        <p>Plazo máximo: 4 meses</p>
-                        <p>APR: 20%</p>
-                    </div>
-
-                    <div class="card level-card">
-                        <span class="level-badge">Nivel 3</span>
-                        <h3>$200</h3>
-                        <p>Plazo máximo: 5 meses</p>
-                        <p>APR: 19%</p>
-                    </div>
-
-                    <div class="card level-card">
-                        <span class="level-badge">Nivel 4</span>
-                        <h3>$400</h3>
-                        <p>Plazo máximo: 6 meses</p>
-                        <p>APR: 18%</p>
-                    </div>
-
-                    <div class="card level-card">
-                        <span class="level-badge">Nivel 5</span>
-                        <h3>$800</h3>
-                        <p>Plazo máximo: 7 meses</p>
-                        <p>APR: 17%</p>
-                    </div>
-
-                    <div class="card level-card">
-                        <span class="level-badge">Nivel 6</span>
-                        <h3>$1,600</h3>
-                        <p>Plazo máximo: 9 meses</p>
-                        <p>APR: 16%</p>
-                    </div>
+                <div class="steps-grid">
+                    <article class="card">
+                        <div class="step-badge">1</div>
+                        <h3 data-i18n="how_s1_title">Start small</h3>
+                        <p data-i18n="how_s1_body">You start with a $50 loan and repay in 2 to 3 months at 21% APR.</p>
+                    </article>
+                    <article class="card">
+                        <div class="step-badge">2</div>
+                        <h3 data-i18n="how_s2_title">Build up</h3>
+                        <p data-i18n="how_s2_body">After you repay, you can get a second loan, then a third, and keep
+                            growing toward 1 Bitcoin financing levels.</p>
+                    </article>
+                    <article class="card">
+                        <div class="step-badge">3</div>
+                        <h3 data-i18n="how_s3_title">Start bigger if you want</h3>
+                        <p data-i18n="how_s3_body">You can ask for up to $1,000 instead of $50 with a 10% downpayment
+                            on the loan.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section id="simulador">
+        <section id="benefits" class="section">
             <div class="container">
                 <div class="section-head">
-                    <h2>Simulador de elegibilidad</h2>
-                    <p>Primero vemos qué nivel te corresponde. Luego calculamos ese préstamo.</p>
+                    <h2 data-i18n="benefits_title">Benefits</h2>
+                    <p data-i18n="benefits_sub">Designed to make Bitcoin financing easier to understand and use.</p>
                 </div>
 
-                <div class="sim-layout">
-                    <div class="sim-card">
-                        <h3>1. Tu situación</h3>
-                        <p>Selecciona si eres cliente nuevo o si ya terminaste un préstamo anterior.</p>
-
-                        <div class="form-group">
-                            <label for="customerType">Tipo de cliente</label>
-                            <select id="customerType">
-                                <option value="new">Primera vez</option>
-                                <option value="returning">Ya fui cliente y quiero renovar</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="lastCompletedLevel">Último nivel pagado completamente</label>
-                            <select id="lastCompletedLevel" disabled>
-                                <option value="0">Ninguno</option>
-                                <option value="1">Nivel 1</option>
-                                <option value="2">Nivel 2</option>
-                                <option value="3">Nivel 3</option>
-                                <option value="4">Nivel 4</option>
-                                <option value="5">Nivel 5</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="hasActiveLoan">¿Tienes un préstamo activo ahora mismo?</label>
-                            <select id="hasActiveLoan">
-                                <option value="no">No</option>
-                                <option value="yes">Sí</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="sim-card">
-                        <h3>2. Nivel habilitado</h3>
-                        <p>Esto lo calcula la regla del producto.</p>
-
-                        <div class="result-panel">
-                            <span class="result-label">Nivel disponible</span>
-                            <strong id="eligibleLevelName">Nivel 1</strong>
-                        </div>
-
-                        <div class="result-panel">
-                            <span class="result-label">Monto máximo</span>
-                            <strong id="eligibleAmount">$50</strong>
-                        </div>
-
-                        <div class="result-panel">
-                            <span class="result-label">Estado</span>
-                            <strong id="eligibilityStatus">Puedes aplicar</strong>
-                        </div>
-
-                        <p id="eligibilityMessage" class="helper-text">
-                            Como es tu primera vez, solo puedes aplicar al Nivel 1.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="sim-card calculator-card">
-                    <h3>3. Simulación del préstamo permitido</h3>
-                    <p>El monto y el plazo se limitan automáticamente al nivel que te corresponde.</p>
-
-                    <div class="sim-row">
-                        <label>
-                            <span>Monto</span>
-                            <strong id="loanAmountLabel">$50</strong>
-                        </label>
-                        <input id="loanAmount" type="range" min="50" max="50" step="50" value="50" />
-                    </div>
-
-                    <div class="sim-row">
-                        <label>
-                            <span>Meses</span>
-                            <strong id="loanTermLabel">3</strong>
-                        </label>
-                        <input id="loanTerm" type="range" min="2" max="3" step="1" value="3" />
-                    </div>
-
-                    <div class="sim-grid">
-                        <div class="sim-box">
-                            <span>Nivel</span>
-                            <strong id="summaryLevel">Nivel 1</strong>
-                        </div>
-                        <div class="sim-box">
-                            <span>APR</span>
-                            <strong id="summaryApr">21%</strong>
-                        </div>
-                        <div class="sim-box">
-                            <span>Pago mensual</span>
-                            <strong id="monthlyPayment">$0.00</strong>
-                        </div>
-                        <div class="sim-box">
-                            <span>Total a pagar</span>
-                            <strong id="totalPayment">$0.00</strong>
-                        </div>
-                    </div>
-
-                    <a class="btn btn-primary full-width" href="#contacto">Quiero aplicar a mi nivel</a>
+                <div class="feature-grid">
+                    <article class="feature">
+                        <h3 data-i18n="benefits_f1_title">Price lock at purchase</h3>
+                        <p data-i18n="benefits_f1_body">You finance Bitcoin at the price when you apply and get approved.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="benefits_f2_title">Flexible growth</h3>
+                        <p data-i18n="benefits_f2_body">Move from a starter loan to larger loan sizes as you repay.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="benefits_f3_title">Lower rates over time</h3>
+                        <p data-i18n="benefits_f3_body">Interest starts at 21% and can drop as low as 9% as you build
+                            repayment history.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="benefits_f4_title">Human support</h3>
+                        <p data-i18n="benefits_f4_body">Our team helps you through application and repayment questions.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section id="faq">
+        <section id="trust" class="section alt-bg">
             <div class="container">
                 <div class="section-head">
-                    <h2>Preguntas frecuentes</h2>
-                    <p>Estas FAQs ya explican la regla de progresión por niveles.</p>
+                    <h2 data-i18n="trust_title">Trust &amp; Safety</h2>
+                    <p data-i18n="trust_sub">Clear expectations before you apply.</p>
                 </div>
 
-                <div class="faq-grid">
+                <div class="feature-grid">
+                    <article class="feature">
+                        <h3 data-i18n="trust_f1_title">No Bitcoin required to start</h3>
+                        <p data-i18n="trust_f1_body">You do not need to already own Bitcoin to apply.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="trust_f2_title">Not a Bitcoin-backed collateral loan</h3>
+                        <p data-i18n="trust_f2_body">This is financing to buy Bitcoin over time, not borrowing against
+                            your existing BTC.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="trust_f3_title">US-based company</h3>
+                        <p data-i18n="trust_f3_body">Rhino Asset Capital is a US company and is in the process of
+                            obtaining retail licenses in Florida.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="trust_f4_title">Case-by-case reviews</h3>
+                        <p data-i18n="trust_f4_body">We serve businesses worldwide. Individual applicants are reviewed
+                            based on their specific case.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="fees" class="section">
+            <div class="container narrow">
+                <div class="section-head">
+                    <h2 data-i18n="fees_title">Fees</h2>
+                    <p data-i18n="fees_sub">Simple and transparent.</p>
+                </div>
+
+                <div class="fees-card">
+                    <ul class="offer-list">
+                        <li><strong data-i18n="fees_interest_label">Interest</strong> <span
+                                data-i18n="fees_interest_value">Initial interest is 21% APR and can go down to 9% APR
+                                after successful repayments.</span></li>
+                        <li><strong data-i18n="fees_app_label">Application fee</strong> <span
+                                data-i18n="fees_app_value">$5 application fee (non-refundable).</span></li>
+                        <li><strong data-i18n="fees_repay_label">Repayment method</strong> <span
+                                data-i18n="fees_repay_value">Repayments work through stablecoin transfers only.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="section alt-bg">
+            <div class="container narrow">
+                <div class="section-head">
+                    <h2 data-i18n="faq_title">Frequently asked questions</h2>
+                    <p data-i18n="faq_sub">Everything you need to know before you apply.</p>
+                </div>
+
+                <div class="faq-list">
                     <details>
-                        <summary>¿Puedo entrar directamente a un nivel más alto?</summary>
-                        <p>No. La primera vez solo puedes aplicar al Nivel 1.</p>
+                        <summary data-i18n="faq_q1">What is a Bitcoin Equity Loan?</summary>
+                        <p data-i18n="faq_a1">A Bitcoin Equity Loan lets you buy Bitcoin now and pay over time through
+                            scheduled payments.</p>
                     </details>
 
                     <details>
-                        <summary>¿Cuándo puedo renovar?</summary>
-                        <p>Cuando hayas terminado de pagar el préstamo anterior por completo.</p>
+                        <summary data-i18n="faq_q2">How is this different from other Bitcoin-backed loans?</summary>
+                        <p data-i18n="faq_a2">This product is not borrowing against Bitcoin you already own. It is
+                            financing to acquire Bitcoin over time.</p>
                     </details>
 
                     <details>
-                        <summary>¿Puedo pedir dos niveles a la vez?</summary>
-                        <p>No. Primero debes cerrar el nivel actual y luego pasar al siguiente.</p>
+                        <summary data-i18n="faq_q3">Do I need to already own Bitcoin to get a loan?</summary>
+                        <p data-i18n="faq_a3">No. You can apply even if you do not own any Bitcoin today.</p>
                     </details>
 
                     <details>
-                        <summary>¿Qué pasa si todavía tengo un préstamo activo?</summary>
-                        <p>No podrás renovar hasta que ese préstamo esté totalmente pagado.</p>
+                        <summary data-i18n="faq_q4">What happens if Bitcoin's price drops significantly?</summary>
+                        <p data-i18n="faq_a4">Your repayment schedule stays the same as agreed in your loan plan.</p>
+                    </details>
+
+                    <details>
+                        <summary data-i18n="faq_q5">How do repayments work?</summary>
+                        <p data-i18n="faq_a5">Repayments are made only through stablecoin transfers in crypto.</p>
+                    </details>
+
+                    <details>
+                        <summary data-i18n="faq_q6">Is Rhino Asset Capital regulated? Is my Bitcoin safe?</summary>
+                        <p data-i18n="faq_a6">Yes. We are a US company and are in the process of obtaining retail
+                            licenses in Florida. Application details and safeguards are provided during onboarding.</p>
+                    </details>
+
+                    <details>
+                        <summary data-i18n="faq_q7">Who can apply globally?</summary>
+                        <p data-i18n="faq_a7">We serve businesses worldwide. If you are a person, we need to understand
+                            your specific case during the application process.</p>
+                    </details>
+
+                    <details>
+                        <summary data-i18n="faq_q8">Is this a loan offer?</summary>
+                        <p data-i18n="faq_a8">No. This page is for information only. Application and approval are
+                            required by law.</p>
                     </details>
                 </div>
             </div>
         </section>
 
-        <section>
+        <section id="about" class="section">
             <div class="container">
-                <div class="cta-band">
-                    <div>
-                        <h2>Empieza pequeño. Sube pagando.</h2>
-                        <p>Una progresión simple hace que el producto sea fácil de entender para el usuario.</p>
-                    </div>
-                    <a class="btn btn-secondary" href="#simulador">Ver mi nivel</a>
+                <div class="section-head">
+                    <h2 data-i18n="about_title">About us</h2>
+                    <p data-i18n="about_sub">We make Bitcoin financing easier to understand, safer to start, and clearer
+                        to manage.</p>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature">
+                        <h3 data-i18n="about_f1_title">Clear process</h3>
+                        <p data-i18n="about_f1_body">You always know your next step, timeline, and repayment plan.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="about_f2_title">Built for businesses</h3>
+                        <p data-i18n="about_f2_body">We serve business clients globally with practical financing options.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="about_f3_title">Support when needed</h3>
+                        <p data-i18n="about_f3_body">Our team answers product, payments, and onboarding questions.</p>
+                    </article>
+                    <article class="feature">
+                        <h3 data-i18n="about_f4_title">Long-term approach</h3>
+                        <p data-i18n="about_f4_body">We help customers grow from small starts to larger positions over
+                            time.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-band">
+            <div class="container cta-grid">
+                <div class="cta-copy">
+                    <h2 data-i18n="cta_title">Ready to apply?</h2>
+                    <p data-i18n="cta_sub">Send us an email to start your application.</p>
+                </div>
+                <div class="cta-actions">
+                    <a class="btn btn-primary"
+                        href="mailto:apply@rhino-asset.com?subject=Application%20-%20Rhino%20Asset">
+                        <span data-i18n="cta_primary">Apply</span>
+                    </a>
+                    <a class="btn btn-secondary" href="#contact">
+                        <span data-i18n="cta_secondary">Contact support</span>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contacto">
+    <footer id="contact" class="site-footer">
         <div class="container footer-grid">
-            <div>
-                <strong>Rhino Asset Capital</strong><br />
-                <span>contacto@rhinoassetcapital.com</span><br />
-                <span>+1 000 000 0000</span>
+            <div class="footer-brand">
+                <div class="footer-mark">
+                    <img class="footer-logo-img" src="../public/Logo no background.png" alt="" />
+                </div>
+                <div class="footer-title">Rhino Asset Capital</div>
+                <p class="footer-text" data-i18n="footer_sub">Email us for applications or support.</p>
             </div>
-            <div>
-                <a href="#">Privacidad</a> ·
-                <a href="#">Términos</a> ·
-                <a href="#simulador">Aplicar</a>
+
+            <div class="footer-links">
+                <a href="mailto:apply@rhino-asset.com">apply@rhino-asset.com</a>
+                <a href="mailto:support@rhino-asset.com">support@rhino-asset.com</a>
+                <a href="#product" data-i18n="footer_link_product">Product</a>
+                <a href="#faq" data-i18n="footer_link_faq">FAQ</a>
+                <a href="#how" data-i18n="footer_link_how">How it works</a>
+            </div>
+        </div>
+
+        <div class="container footer-bottom">
+            <div class="footer-disclaimer" data-i18n="footer_disclaimer">
+                Not a loan offer. Application and approval are required by law. Terms are shown for general information.
             </div>
         </div>
     </footer>
 
+    <script>
+        // #region agent log
+        (function () {
+            function sendAgentDebugLog(payload) {
+                fetch("http://127.0.0.1:7455/ingest/af57b92d-98f6-4d2d-ab04-9fb8fca747ca", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-Debug-Session-Id": "a4f546"
+                    },
+                    body: JSON.stringify(payload)
+                }).catch(function () { });
+            }
+
+            sendAgentDebugLog({
+                sessionId: "a4f546",
+                runId: "run2",
+                hypothesisId: "H5",
+                location: "frontend/index.html:inline.bootstrap",
+                message: "Inline instrumentation bootstrapped",
+                data: {
+                    docLang: document.documentElement.lang || null
+                },
+                timestamp: Date.now()
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var langButtons = document.querySelectorAll(".lang-btn").length;
+                var mailtoCount = Array.prototype.slice.call(document.querySelectorAll("a[href]"))
+                    .filter(function (el) {
+                        var href = el.getAttribute("href") || "";
+                        return href.toLowerCase().indexOf("mailto:") === 0;
+                    }).length;
+
+                sendAgentDebugLog({
+                    sessionId: "a4f546",
+                    runId: "run2",
+                    hypothesisId: "H5",
+                    location: "frontend/index.html:inline.domcontentloaded",
+                    message: "Inline DOM ready",
+                    data: {
+                        langButtons: langButtons,
+                        mailtoCount: mailtoCount
+                    },
+                    timestamp: Date.now()
+                });
+
+                var heroVisual = document.querySelector(".hero-visual");
+                var heroImage = document.querySelector(".hero-image-exact");
+                var heroVisualStyle = heroVisual ? window.getComputedStyle(heroVisual) : null;
+                var heroImageStyle = heroImage ? window.getComputedStyle(heroImage) : null;
+
+                sendAgentDebugLog({
+                    sessionId: "a4f546",
+                    runId: "run3",
+                    hypothesisId: "H8",
+                    location: "frontend/index.html:inline.heroState",
+                    message: "Hero image state on DOMContentLoaded",
+                    data: {
+                        viewportWidth: window.innerWidth,
+                        viewportHeight: window.innerHeight,
+                        heroVisualExists: !!heroVisual,
+                        heroImageExists: !!heroImage,
+                        heroVisualDisplay: heroVisualStyle ? heroVisualStyle.display : null,
+                        heroImageDisplay: heroImageStyle ? heroImageStyle.display : null,
+                        heroImageSrcAttr: heroImage ? heroImage.getAttribute("src") : null,
+                        heroImageCurrentSrc: heroImage ? heroImage.currentSrc : null
+                    },
+                    timestamp: Date.now()
+                });
+
+                if (heroImage && heroVisual) {
+                    var visualRect = heroVisual.getBoundingClientRect();
+                    var imageRect = heroImage.getBoundingClientRect();
+                    sendAgentDebugLog({
+                        sessionId: "a4f546",
+                        runId: "run4",
+                        hypothesisId: "H11",
+                        location: "frontend/index.html:inline.heroLayoutMetrics",
+                        message: "Hero layout metrics",
+                        data: {
+                            heroVisualOffsetWidth: heroVisual.offsetWidth,
+                            heroVisualOffsetHeight: heroVisual.offsetHeight,
+                            heroImageOffsetWidth: heroImage.offsetWidth,
+                            heroImageOffsetHeight: heroImage.offsetHeight,
+                            heroVisualRect: {
+                                x: visualRect.x,
+                                y: visualRect.y,
+                                width: visualRect.width,
+                                height: visualRect.height
+                            },
+                            heroImageRect: {
+                                x: imageRect.x,
+                                y: imageRect.y,
+                                width: imageRect.width,
+                                height: imageRect.height
+                            },
+                            heroImageVisibility: heroImageStyle ? heroImageStyle.visibility : null,
+                            heroImageOpacity: heroImageStyle ? heroImageStyle.opacity : null
+                        },
+                        timestamp: Date.now()
+                    });
+                }
+
+                if (heroImage) {
+                    heroImage.addEventListener("load", function () {
+                        var heroVisualBg = heroVisualStyle ? heroVisualStyle.backgroundColor : null;
+                        var heroImageBg = heroImageStyle ? heroImageStyle.backgroundColor : null;
+
+                        sendAgentDebugLog({
+                            sessionId: "a4f546",
+                            runId: "run5",
+                            hypothesisId: "H9",
+                            location: "frontend/index.html:inline.heroImageLoad",
+                            message: "Hero image loaded",
+                            data: {
+                                currentSrc: heroImage.currentSrc || null,
+                                naturalWidth: heroImage.naturalWidth || null,
+                                naturalHeight: heroImage.naturalHeight || null,
+                                heroVisualBackgroundColor: heroVisualBg,
+                                heroImageBackgroundColor: heroImageBg
+                            },
+                            timestamp: Date.now()
+                        });
+
+                        try {
+                            var sampleCanvas = document.createElement("canvas");
+                            sampleCanvas.width = heroImage.naturalWidth || heroImage.width;
+                            sampleCanvas.height = heroImage.naturalHeight || heroImage.height;
+                            var sampleCtx = sampleCanvas.getContext("2d");
+                            if (sampleCtx) {
+                                sampleCtx.drawImage(heroImage, 0, 0);
+                                var tl = sampleCtx.getImageData(0, 0, 1, 1).data;
+                                var tr = sampleCtx.getImageData(Math.max(0, sampleCanvas.width - 1), 0, 1, 1).data;
+                                var bl = sampleCtx.getImageData(0, Math.max(0, sampleCanvas.height - 1), 1, 1).data;
+                                var br = sampleCtx.getImageData(Math.max(0, sampleCanvas.width - 1), Math.max(0, sampleCanvas.height - 1), 1, 1).data;
+
+                                sendAgentDebugLog({
+                                    sessionId: "a4f546",
+                                    runId: "run6",
+                                    hypothesisId: "H18",
+                                    location: "frontend/index.html:inline.heroCornerPixels",
+                                    message: "Hero image corner pixels",
+                                    data: {
+                                        topLeft: Array.prototype.slice.call(tl),
+                                        topRight: Array.prototype.slice.call(tr),
+                                        bottomLeft: Array.prototype.slice.call(bl),
+                                        bottomRight: Array.prototype.slice.call(br)
+                                    },
+                                    timestamp: Date.now()
+                                });
+                            }
+                        } catch (error) {
+                            sendAgentDebugLog({
+                                sessionId: "a4f546",
+                                runId: "run6",
+                                hypothesisId: "H18",
+                                location: "frontend/index.html:inline.heroCornerPixels",
+                                message: "Corner pixel sample failed",
+                                data: {
+                                    error: String(error || "")
+                                },
+                                timestamp: Date.now()
+                            });
+                        }
+                    }
+
+                    heroImage.addEventListener("error", function () {
+                        sendAgentDebugLog({
+                            sessionId: "a4f546",
+                            runId: "run3",
+                            hypothesisId: "H10",
+                            location: "frontend/index.html:inline.heroImageError",
+                            message: "Hero image failed to load",
+                            data: {
+                                src: heroImage.getAttribute("src") || null,
+                                currentSrc: heroImage.currentSrc || null
+                            },
+                            timestamp: Date.now()
+                        });
+                    });
+                }
+            });
+
+            document.addEventListener("click", function (event) {
+                var target = event.target;
+                if (!(target instanceof Element)) return;
+                var langBtn = target.closest(".lang-btn");
+                if (langBtn) {
+                    sendAgentDebugLog({
+                        sessionId: "a4f546",
+                        runId: "run2",
+                        hypothesisId: "H6",
+                        location: "frontend/index.html:inline.langClick",
+                        message: "Inline saw language click",
+                        data: {
+                            dataLang: langBtn.getAttribute("data-lang") || null,
+                            defaultPrevented: event.defaultPrevented
+                        },
+                        timestamp: Date.now()
+                    });
+                }
+
+                var anchor = target.closest("a[href]");
+                if (!anchor) return;
+                var href = anchor.getAttribute("href") || "";
+                if (href.toLowerCase().indexOf("mailto:") !== 0) return;
+                sendAgentDebugLog({
+                    sessionId: "a4f546",
+                    runId: "run2",
+                    hypothesisId: "H7",
+                    location: "frontend/index.html:inline.mailtoClick",
+                    message: "Inline saw mailto click",
+                    data: {
+                        href: href,
+                        defaultPrevented: event.defaultPrevented
+                    },
+                    timestamp: Date.now()
+                });
+            }, true);
+        })();
+        // #endregion
+    </script>
     <script src="script.js"></script>
 </body>
 
