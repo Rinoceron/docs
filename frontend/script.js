@@ -64,7 +64,7 @@ const I18N = {
         fees_interest_label: "Interest",
         fees_interest_value: "Initial interest is 21% APR and can go down to 9% APR after successful repayments.",
         fees_app_label: "Application fee",
-        fees_app_value: "$5 application fee (non-refundable).",
+        fees_app_value: "$5 first application fee (non-refundable). Succesive loans free of charge",
         fees_repay_label: "Repayment method",
         fees_repay_value: "Repayments work through stablecoin transfers only.",
 
@@ -113,7 +113,7 @@ const I18N = {
         nav_product: "Producto",
         nav_about: "Nosotros",
         nav_how: "Cómo funciona",
-        nav_fees: "Tarifas",
+        nav_fees: "Precio",
         nav_faq: "FAQ",
         nav_contact: "Contacto",
         nav_cta: "Aplicar",
@@ -169,12 +169,12 @@ const I18N = {
         trust_f4_title: "Revisión por caso",
         trust_f4_body: "Servimos a empresas globalmente. Las personas se revisan según su caso específico.",
 
-        fees_title: "Tarifas",
+        fees_title: "Precio",
         fees_sub: "Simple y transparente.",
         fees_interest_label: "Interés",
         fees_interest_value: "El interés inicial es 21% TAE y puede bajar hasta 9% TAE después de pagos exitosos.",
-        fees_app_label: "Tarifa de solicitud",
-        fees_app_value: "Tarifa de solicitud de $5 (no reembolsable).",
+        fees_app_label: "Aplicación",
+        fees_app_value: "Aplicar la primera vez: $5 (no reembolsable). Sucesivas renovaciones gratis",
         fees_repay_label: "Método de pago",
         fees_repay_value: "Los pagos funcionan solo mediante transferencias de stablecoin.",
 
