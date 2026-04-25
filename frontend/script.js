@@ -6,6 +6,7 @@ const I18N = {
         nav_fees: "Fees",
         nav_faq: "FAQ",
         nav_contact: "Contact",
+        nav_api_docs: "API docs",
         nav_cta: "Apply",
 
         hero_eyebrow: "Rhino Asset Capital",
@@ -116,6 +117,7 @@ const I18N = {
         nav_fees: "Precio",
         nav_faq: "FAQ",
         nav_contact: "Contacto",
+        nav_api_docs: "API docs",
         nav_cta: "Aplicar",
 
         hero_eyebrow: "Rhino Asset Capital",
