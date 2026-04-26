@@ -1,0 +1,64 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "Rhino Asset API Docs",
+  "logo": {
+    "dark": "/artifacts/Logo no background.png",
+    "light": "/artifacts/Logo no background.png"
+  },
+  "navigation": [
+    {
+      "group": "Introduction",
+      "pages": [
+        "index"
+      ]
+    },
+    {
+      "group": "API reference",
+      "openapi": "generated/openapi.public.json"
+    },
+    {
+      "group": "Onboarding",
+      "pages": [
+        "generated/stages/onboarding"
+      ]
+    },
+    {
+      "group": "Application",
+      "pages": [
+        "generated/stages/application"
+      ]
+    },
+    {
+      "group": "Servicing",
+      "pages": [
+        "generated/stages/servicing"
+      ]
+    },
+    {
+      "group": "Delinquency",
+      "pages": [
+        "generated/stages/delinquency"
+      ]
+    },
+    {
+      "group": "Misc Services",
+      "pages": [
+        "generated/stages/misc-services"
+      ]
+    }
+  ],
+  "openapi": "generated/openapi.public.json",
+  "api": {
+    "playground": {
+      "display": "interactive"
+    },
+    "examples": {
+      "defaults": "all",
+      "languages": [
+        "curl",
+        "javascript",
+        "python"
+      ]
+    }
+  }
+}

@@ -1,0 +1,33 @@
+---
+title: Misc Services
+description: Public Misc Services endpoints
+---
+
+# Misc Services
+
+Endpoints below include `/public/*` routes in the **Misc Services** category plus `GET /health` (platform health check). Generated from `backend/api/src/routes/endpointInventory.json` and the docs metadata file.
+
+## `GET /health`
+
+Lightweight liveness probe returning service availability for load balancers and monitors.
+
+- `operationId`: `health`
+
+## `GET /public/onboarding-sessions/{sessionId}/documents`
+
+List documents linked to an onboarding session before or after party creation.
+
+- `operationId`: `listDocumentsForOnboardingSession`
+
+## `POST /public/onboarding-sessions/{sessionId}/documents`
+
+Register metadata for a document uploaded or linked during onboarding (for example type and storage reference).
+
+- `operationId`: `createOnboardingDocumentMetadata`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/documents`
+
+List documents (statements, notices, disclosures) available for this loan in the portal.
+
+- `operationId`: `listDocumentsForPartyLoan`
+

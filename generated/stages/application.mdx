@@ -1,0 +1,45 @@
+---
+title: Application
+description: Public Application endpoints
+---
+
+# Application
+
+Endpoints below are generated from `backend/api/src/routes/endpointInventory.json` and filtered to `/public/*` for this stage.
+
+## `POST /public/applications`
+
+Create a new loan application for the authenticated or implied borrower context.
+
+- `operationId`: `createLoanApplication`
+
+## `GET /public/applications/{applicationId}`
+
+Retrieve the full loan application record including status and key fields.
+
+- `operationId`: `getLoanApplication`
+
+## `PATCH /public/applications/{applicationId}`
+
+Update editable fields on a draft or in-progress loan application.
+
+- `operationId`: `updateLoanApplication`
+
+## `POST /public/applications/{applicationId}/submit`
+
+Submit a loan application for credit decisioning or operations review.
+
+- `operationId`: `submitLoanApplication`
+
+## `GET /public/parties/{partyId}/applications`
+
+List all loan applications associated with a given party.
+
+- `operationId`: `listPartyApplications`
+
+## `GET /public/parties/{partyId}/available-loan-products`
+
+List loan products this party is eligible to apply for, typically filtered by rules or catalog.
+
+- `operationId`: `listAvailableLoanProductsForParty`
+
