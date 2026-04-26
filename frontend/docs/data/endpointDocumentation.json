@@ -1,0 +1,125 @@
+{
+  "byOperationId": {
+    "health": {
+      "description": "Lightweight liveness probe returning service availability for load balancers and monitors.",
+      "summary": "Health check"
+    },
+    "getOnboardingSession": {
+      "description": "Retrieve the current onboarding session state for a given session identifier."
+    },
+    "submitOnboardingEmail": {
+      "description": "Submit or update the applicant email address as part of contact verification during onboarding."
+    },
+    "retryOnboardingEmailVerification": {
+      "description": "Request a new email verification code or retry the email verification step."
+    },
+    "submitOnboardingPhone": {
+      "description": "Submit or update the applicant phone number for SMS or call verification during onboarding."
+    },
+    "retryOnboardingPhoneVerification": {
+      "description": "Request a new phone verification code or retry the phone verification step."
+    },
+    "upsertApplicantProfile": {
+      "description": "Create or replace the applicant profile details collected during onboarding."
+    },
+    "listOnboardingAddresses": {
+      "description": "List addresses captured while the user is still in the onboarding session flow."
+    },
+    "createOnboardingAddress": {
+      "description": "Add a new address record associated with the onboarding session before party finalization."
+    },
+    "updateOnboardingAddress": {
+      "description": "Update an existing onboarding-session address (partial update)."
+    },
+    "listPendingOnboardingRequirements": {
+      "description": "List outstanding onboarding requirements or checklist items the applicant must satisfy."
+    },
+    "createOnboardingDocumentMetadata": {
+      "description": "Register metadata for a document uploaded or linked during onboarding (for example type and storage reference)."
+    },
+    "listDocumentsForOnboardingSession": {
+      "description": "List documents linked to an onboarding session before or after party creation."
+    },
+    "submitOnboardingForReview": {
+      "description": "Submit the completed onboarding package for internal review or underwriting handoff."
+    },
+    "getPartyBySessionId": {
+      "description": "Resolve and return the party record linked to the onboarding session, if one exists. After approval, partners may also receive the same payload via the party.ready outbound webhook."
+    },
+    "registerOnboardingSessionWebhook": {
+      "description": "Register or update the HTTPS URL (and optional signing secret) where Rhino POSTs a party.ready event when internal onboarding is approved with a party_id."
+    },
+    "getParty": {
+      "description": "Fetch a party profile and core attributes for a known party identifier."
+    },
+    "listPartyAddresses": {
+      "description": "List all addresses on file for the party after onboarding has produced a party record."
+    },
+    "createPartyAddress": {
+      "description": "Add a new address to the party’s permanent address book post-onboarding."
+    },
+    "updatePartyAddress": {
+      "description": "Update an existing party address (partial update)."
+    },
+    "listAvailableLoanProductsForParty": {
+      "description": "List loan products this party is eligible to apply for, typically filtered by rules or catalog."
+    },
+    "createLoanApplication": {
+      "description": "Create a new loan application for the authenticated or implied borrower context."
+    },
+    "getLoanApplication": {
+      "description": "Retrieve the full loan application record including status and key fields."
+    },
+    "updateLoanApplication": {
+      "description": "Update editable fields on a draft or in-progress loan application."
+    },
+    "submitLoanApplication": {
+      "description": "Submit a loan application for credit decisioning or operations review."
+    },
+    "listPartyApplications": {
+      "description": "List all loan applications associated with a given party."
+    },
+    "listLoansForParty": {
+      "description": "List loans booked or visible to the party (borrower-facing loan portfolio view)."
+    },
+    "getLoanForParty": {
+      "description": "Return details for a single loan that belongs to the party."
+    },
+    "listLoanScheduleForParty": {
+      "description": "Return the amortization or repayment schedule installments for the loan."
+    },
+    "listLoanBalancesForParty": {
+      "description": "List historical or periodic loan balance snapshots for the loan."
+    },
+    "getLatestLoanBalanceForParty": {
+      "description": "Return the most recent outstanding balance and related figures for the loan."
+    },
+    "listPaymentMethodsForPartyLoan": {
+      "description": "List saved payment methods the borrower may use for this loan."
+    },
+    "createPaymentMethodForPartyLoan": {
+      "description": "Tokenize or register a new payment method for repayments on this loan."
+    },
+    "updatePaymentMethodForPartyLoan": {
+      "description": "Update metadata or default flags on an existing borrower payment method."
+    },
+    "createPaymentIntentForPartyLoan": {
+      "description": "Initiate a borrower payment (intent or charge) against the loan balance."
+    },
+    "listTransactionsForPartyLoan": {
+      "description": "List payments, fees, and other ledger transactions visible to the borrower for this loan."
+    },
+    "listCollateralForPartyLoan": {
+      "description": "List collateral items securing the loan as exposed to the borrower portal."
+    },
+    "listDelinquencyForPartyLoan": {
+      "description": "Summarize delinquency status or cases associated with the loan for borrower visibility."
+    },
+    "listCommunicationsForPartyLoan": {
+      "description": "List borrower-visible communications tied to collections or servicing for this loan."
+    },
+    "listDocumentsForPartyLoan": {
+      "description": "List documents (statements, notices, disclosures) available for this loan in the portal."
+    }
+  }
+}

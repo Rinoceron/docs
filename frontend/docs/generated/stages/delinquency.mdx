@@ -1,0 +1,21 @@
+---
+title: Delinquency
+description: Public Delinquency endpoints
+---
+
+# Delinquency
+
+Endpoints below are generated from `backend/api/src/routes/endpointInventory.json` and filtered to `/public/*` for this stage.
+
+## `GET /public/parties/{partyId}/loans/{loanId}/communications`
+
+List borrower-visible communications tied to collections or servicing for this loan.
+
+- `operationId`: `listCommunicationsForPartyLoan`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/delinquency`
+
+Summarize delinquency status or cases associated with the loan for borrower visibility.
+
+- `operationId`: `listDelinquencyForPartyLoan`
+

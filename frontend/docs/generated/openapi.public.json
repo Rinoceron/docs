@@ -1,0 +1,2000 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Rhino Asset Public API",
+    "version": "1.0.0",
+    "description": "Public Rhino Asset HTTP API. Internal routes are excluded from this spec. Outbound webhooks are documented under **Webhooks** (`partyReady`): Rhino POSTs to your URL when onboarding is approved with a party."
+  },
+  "servers": [
+    {
+      "url": "https://api.rhino-asset.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Webhooks",
+      "description": "Outbound events Rhino delivers to partner HTTPS endpoints."
+    }
+  ],
+  "paths": {
+    "/public/onboarding-sessions/{sessionId}": {
+      "get": {
+        "operationId": "getOnboardingSession",
+        "summary": "GET {sessionId}",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "getOnboardingSession"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieve the current onboarding session state for a given session identifier."
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/addresses": {
+      "get": {
+        "operationId": "listOnboardingAddresses",
+        "summary": "GET addresses",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listOnboardingAddresses"
+                }
+              }
+            }
+          }
+        },
+        "description": "List addresses captured while the user is still in the onboarding session flow."
+      },
+      "post": {
+        "operationId": "createOnboardingAddress",
+        "summary": "POST addresses",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "createOnboardingAddress"
+                }
+              }
+            }
+          }
+        },
+        "description": "Add a new address record associated with the onboarding session before party finalization.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/addresses/{addressId}": {
+      "patch": {
+        "operationId": "updateOnboardingAddress",
+        "summary": "PATCH {addressId}",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "updateOnboardingAddress"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update an existing onboarding-session address (partial update).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/applicant-profile": {
+      "put": {
+        "operationId": "upsertApplicantProfile",
+        "summary": "PUT applicant-profile",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "upsertApplicantProfile"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create or replace the applicant profile details collected during onboarding.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/contact/email": {
+      "post": {
+        "operationId": "submitOnboardingEmail",
+        "summary": "POST email",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "submitOnboardingEmail"
+                }
+              }
+            }
+          }
+        },
+        "description": "Submit or update the applicant email address as part of contact verification during onboarding.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/contact/email/retry": {
+      "post": {
+        "operationId": "retryOnboardingEmailVerification",
+        "summary": "POST retry",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "retryOnboardingEmailVerification"
+                }
+              }
+            }
+          }
+        },
+        "description": "Request a new email verification code or retry the email verification step.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/contact/phone": {
+      "post": {
+        "operationId": "submitOnboardingPhone",
+        "summary": "POST phone",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "submitOnboardingPhone"
+                }
+              }
+            }
+          }
+        },
+        "description": "Submit or update the applicant phone number for SMS or call verification during onboarding.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/contact/phone/retry": {
+      "post": {
+        "operationId": "retryOnboardingPhoneVerification",
+        "summary": "POST retry",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "retryOnboardingPhoneVerification"
+                }
+              }
+            }
+          }
+        },
+        "description": "Request a new phone verification code or retry the phone verification step.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/party": {
+      "get": {
+        "operationId": "getPartyBySessionId",
+        "summary": "GET party",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "getPartyBySessionId"
+                }
+              }
+            }
+          }
+        },
+        "description": "Resolve and return the party record linked to the onboarding session, if one exists. After approval, partners may also receive the same payload via the party.ready outbound webhook."
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/requirements": {
+      "get": {
+        "operationId": "listPendingOnboardingRequirements",
+        "summary": "GET requirements",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listPendingOnboardingRequirements"
+                }
+              }
+            }
+          }
+        },
+        "description": "List outstanding onboarding requirements or checklist items the applicant must satisfy."
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/submit": {
+      "post": {
+        "operationId": "submitOnboardingForReview",
+        "summary": "POST submit",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "submitOnboardingForReview"
+                }
+              }
+            }
+          }
+        },
+        "description": "Submit the completed onboarding package for internal review or underwriting handoff.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/webhook": {
+      "put": {
+        "operationId": "registerOnboardingSessionWebhook",
+        "summary": "PUT webhook",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Webhook URL stored on the session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegisterWebhookResponse"
+                },
+                "example": {
+                  "ok": true,
+                  "session_id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "webhook_url is required"
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "Persistence or upstream error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                },
+                "example": {
+                  "error": "Failed to persist webhook",
+                  "detail": "…"
+                }
+              }
+            }
+          }
+        },
+        "description": "Register or update the HTTPS URL (and optional signing secret) where Rhino POSTs a party.ready event when internal onboarding is approved with a party_id.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterWebhookRequest"
+              },
+              "example": {
+                "webhook_url": "https://partner.example.com/hooks/rhino/party-ready",
+                "webhook_secret": "optional-shared-secret"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}": {
+      "get": {
+        "operationId": "getParty",
+        "summary": "GET {partyId}",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "getParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "Fetch a party profile and core attributes for a known party identifier."
+      }
+    },
+    "/public/parties/{partyId}/addresses": {
+      "get": {
+        "operationId": "listPartyAddresses",
+        "summary": "GET addresses",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listPartyAddresses"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all addresses on file for the party after onboarding has produced a party record."
+      },
+      "post": {
+        "operationId": "createPartyAddress",
+        "summary": "POST addresses",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "createPartyAddress"
+                }
+              }
+            }
+          }
+        },
+        "description": "Add a new address to the party’s permanent address book post-onboarding.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}/addresses/{addressId}": {
+      "patch": {
+        "operationId": "updatePartyAddress",
+        "summary": "PATCH {addressId}",
+        "tags": [
+          "Onboarding"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "updatePartyAddress"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update an existing party address (partial update).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/applications": {
+      "post": {
+        "operationId": "createLoanApplication",
+        "summary": "POST applications",
+        "tags": [
+          "Application"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "createLoanApplication"
+                }
+              }
+            }
+          }
+        },
+        "description": "Create a new loan application for the authenticated or implied borrower context.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/applications/{applicationId}": {
+      "get": {
+        "operationId": "getLoanApplication",
+        "summary": "GET {applicationId}",
+        "tags": [
+          "Application"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "getLoanApplication"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieve the full loan application record including status and key fields."
+      },
+      "patch": {
+        "operationId": "updateLoanApplication",
+        "summary": "PATCH {applicationId}",
+        "tags": [
+          "Application"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "updateLoanApplication"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update editable fields on a draft or in-progress loan application.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/applications/{applicationId}/submit": {
+      "post": {
+        "operationId": "submitLoanApplication",
+        "summary": "POST submit",
+        "tags": [
+          "Application"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "submitLoanApplication"
+                }
+              }
+            }
+          }
+        },
+        "description": "Submit a loan application for credit decisioning or operations review.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}/applications": {
+      "get": {
+        "operationId": "listPartyApplications",
+        "summary": "GET applications",
+        "tags": [
+          "Application"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listPartyApplications"
+                }
+              }
+            }
+          }
+        },
+        "description": "List all loan applications associated with a given party."
+      }
+    },
+    "/public/parties/{partyId}/available-loan-products": {
+      "get": {
+        "operationId": "listAvailableLoanProductsForParty",
+        "summary": "GET available-loan-products",
+        "tags": [
+          "Application"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listAvailableLoanProductsForParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "List loan products this party is eligible to apply for, typically filtered by rules or catalog."
+      }
+    },
+    "/public/parties/{partyId}/loans": {
+      "get": {
+        "operationId": "listLoansForParty",
+        "summary": "GET loans",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listLoansForParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "List loans booked or visible to the party (borrower-facing loan portfolio view)."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}": {
+      "get": {
+        "operationId": "getLoanForParty",
+        "summary": "GET {loanId}",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "getLoanForParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "Return details for a single loan that belongs to the party."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/balances": {
+      "get": {
+        "operationId": "listLoanBalancesForParty",
+        "summary": "GET balances",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listLoanBalancesForParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "List historical or periodic loan balance snapshots for the loan."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/balances/latest": {
+      "get": {
+        "operationId": "getLatestLoanBalanceForParty",
+        "summary": "GET latest",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "getLatestLoanBalanceForParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "Return the most recent outstanding balance and related figures for the loan."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/collateral": {
+      "get": {
+        "operationId": "listCollateralForPartyLoan",
+        "summary": "GET collateral",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listCollateralForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "List collateral items securing the loan as exposed to the borrower portal."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/payment-methods": {
+      "get": {
+        "operationId": "listPaymentMethodsForPartyLoan",
+        "summary": "GET payment-methods",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listPaymentMethodsForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "List saved payment methods the borrower may use for this loan."
+      },
+      "post": {
+        "operationId": "createPaymentMethodForPartyLoan",
+        "summary": "POST payment-methods",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "createPaymentMethodForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "Tokenize or register a new payment method for repayments on this loan.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/payment-methods/{paymentMethodId}": {
+      "patch": {
+        "operationId": "updatePaymentMethodForPartyLoan",
+        "summary": "PATCH {paymentMethodId}",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "updatePaymentMethodForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "Update metadata or default flags on an existing borrower payment method.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/payments": {
+      "post": {
+        "operationId": "createPaymentIntentForPartyLoan",
+        "summary": "POST payments",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "createPaymentIntentForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "Initiate a borrower payment (intent or charge) against the loan balance.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/schedule": {
+      "get": {
+        "operationId": "listLoanScheduleForParty",
+        "summary": "GET schedule",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listLoanScheduleForParty"
+                }
+              }
+            }
+          }
+        },
+        "description": "Return the amortization or repayment schedule installments for the loan."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/transactions": {
+      "get": {
+        "operationId": "listTransactionsForPartyLoan",
+        "summary": "GET transactions",
+        "tags": [
+          "Servicing"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listTransactionsForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "List payments, fees, and other ledger transactions visible to the borrower for this loan."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/communications": {
+      "get": {
+        "operationId": "listCommunicationsForPartyLoan",
+        "summary": "GET communications",
+        "tags": [
+          "Delinquency"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listCommunicationsForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "List borrower-visible communications tied to collections or servicing for this loan."
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/delinquency": {
+      "get": {
+        "operationId": "listDelinquencyForPartyLoan",
+        "summary": "GET delinquency",
+        "tags": [
+          "Delinquency"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listDelinquencyForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "Summarize delinquency status or cases associated with the loan for borrower visibility."
+      }
+    },
+    "/public/onboarding-sessions/{sessionId}/documents": {
+      "get": {
+        "operationId": "listDocumentsForOnboardingSession",
+        "summary": "GET documents",
+        "tags": [
+          "Misc Services"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "documents": [
+                    {
+                      "document_id": "uuid",
+                      "kind": "ID",
+                      "status": "PENDING"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listDocumentsForOnboardingSession"
+                }
+              }
+            }
+          }
+        },
+        "description": "List documents linked to an onboarding session before or after party creation."
+      },
+      "post": {
+        "operationId": "createOnboardingDocumentMetadata",
+        "summary": "POST documents",
+        "tags": [
+          "Misc Services"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response (or 201 where applicable)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "ok": true
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "createOnboardingDocumentMetadata"
+                }
+              }
+            }
+          }
+        },
+        "description": "Register metadata for a document uploaded or linked during onboarding (for example type and storage reference).",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenericJsonBody"
+              },
+              "example": {
+                "example_field": "value"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/parties/{partyId}/loans/{loanId}/documents": {
+      "get": {
+        "operationId": "listDocumentsForPartyLoan",
+        "summary": "GET documents",
+        "tags": [
+          "Misc Services"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true
+                },
+                "example": {
+                  "result": "Illustrative example; replace when the handler is fully implemented."
+                }
+              }
+            }
+          },
+          "501": {
+            "description": "Not implemented (placeholder handler)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotImplementedResponse"
+                },
+                "example": {
+                  "error": "Not implemented",
+                  "operation_id": "listDocumentsForPartyLoan"
+                }
+              }
+            }
+          }
+        },
+        "description": "List documents (statements, notices, disclosures) available for this loan in the portal."
+      }
+    },
+    "/health": {
+      "get": {
+        "operationId": "health",
+        "summary": "Health check",
+        "description": "Lightweight liveness probe returning service availability for load balancers and monitors.",
+        "tags": [
+          "Misc Services"
+        ],
+        "responses": {
+          "200": {
+            "description": "Service is reachable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                },
+                "example": {
+                  "status": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "partyReady": {
+      "post": {
+        "operationId": "partyReadyWebhook",
+        "summary": "Outbound party.ready (Rhino calls your URL)",
+        "description": "After an internal onboarding decision with `decision=APPROVED` and a `party_id`, Rhino POSTs this JSON body to the HTTPS URL stored via `PUT /public/onboarding-sessions/{sessionId}/webhook` (`partner_ready_webhook_url`). Payload mirrors the party resource you would read with `GET /public/onboarding-sessions/{sessionId}/party`. If `partner_ready_webhook_secret` is set, Rhino sends `X-Rhino-Signature: sha256=<hex>` (HMAC-SHA256 of the raw JSON body).",
+        "tags": [
+          "Webhooks"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PartyReadyPayload"
+              },
+              "example": {
+                "event": "party.ready",
+                "session_id": "11111111-1111-4111-8111-111111111111",
+                "party": {
+                  "party_id": "22222222-2222-4222-8222-222222222222",
+                  "legal_name": "Example Borrower LLC",
+                  "type": "business"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Partner acknowledged the webhook",
+            "content": {
+              "application/json": {
+                "example": {
+                  "received": true
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "operation_id": {
+            "type": "string"
+          }
+        }
+      },
+      "NotImplementedResponse": {
+        "type": "object",
+        "required": [
+          "error",
+          "operation_id"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "operation_id": {
+            "type": "string"
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok"
+            ]
+          }
+        }
+      },
+      "PartyReadyPayload": {
+        "type": "object",
+        "required": [
+          "event",
+          "session_id",
+          "party"
+        ],
+        "properties": {
+          "event": {
+            "type": "string",
+            "enum": [
+              "party.ready"
+            ]
+          },
+          "session_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "party": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      },
+      "RegisterWebhookRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "webhook_url"
+        ],
+        "properties": {
+          "webhook_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "webhook_secret": {
+            "type": "string"
+          }
+        }
+      },
+      "RegisterWebhookResponse": {
+        "type": "object",
+        "required": [
+          "ok",
+          "session_id"
+        ],
+        "properties": {
+          "ok": {
+            "type": "boolean"
+          },
+          "session_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "GenericJsonBody": {
+        "type": "object",
+        "additionalProperties": true
+      }
+    }
+  }
+}

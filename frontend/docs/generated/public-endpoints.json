@@ -1,0 +1,275 @@
+[
+  {
+    "path": "/public/onboarding-sessions/{sessionId}",
+    "method": "GET",
+    "operationId": "getOnboardingSession",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/addresses",
+    "method": "GET",
+    "operationId": "listOnboardingAddresses",
+    "tag": "Public - Address",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/addresses",
+    "method": "POST",
+    "operationId": "createOnboardingAddress",
+    "tag": "Public - Address",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/addresses/{addressId}",
+    "method": "PATCH",
+    "operationId": "updateOnboardingAddress",
+    "tag": "Public - Address",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/applicant-profile",
+    "method": "PUT",
+    "operationId": "upsertApplicantProfile",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/contact/email",
+    "method": "POST",
+    "operationId": "submitOnboardingEmail",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/contact/email/retry",
+    "method": "POST",
+    "operationId": "retryOnboardingEmailVerification",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/contact/phone",
+    "method": "POST",
+    "operationId": "submitOnboardingPhone",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/contact/phone/retry",
+    "method": "POST",
+    "operationId": "retryOnboardingPhoneVerification",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/party",
+    "method": "GET",
+    "operationId": "getPartyBySessionId",
+    "tag": "Public - Party",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/requirements",
+    "method": "GET",
+    "operationId": "listPendingOnboardingRequirements",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/submit",
+    "method": "POST",
+    "operationId": "submitOnboardingForReview",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/webhook",
+    "method": "PUT",
+    "operationId": "registerOnboardingSessionWebhook",
+    "tag": "Public - Onboarding",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/parties/{partyId}",
+    "method": "GET",
+    "operationId": "getParty",
+    "tag": "Public - Party",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/parties/{partyId}/addresses",
+    "method": "GET",
+    "operationId": "listPartyAddresses",
+    "tag": "Public - Address",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/parties/{partyId}/addresses",
+    "method": "POST",
+    "operationId": "createPartyAddress",
+    "tag": "Public - Address",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/parties/{partyId}/addresses/{addressId}",
+    "method": "PATCH",
+    "operationId": "updatePartyAddress",
+    "tag": "Public - Address",
+    "stage": "onboarding"
+  },
+  {
+    "path": "/public/applications",
+    "method": "POST",
+    "operationId": "createLoanApplication",
+    "tag": "Public - Loan Application",
+    "stage": "application"
+  },
+  {
+    "path": "/public/applications/{applicationId}",
+    "method": "GET",
+    "operationId": "getLoanApplication",
+    "tag": "Public - Loan Application",
+    "stage": "application"
+  },
+  {
+    "path": "/public/applications/{applicationId}",
+    "method": "PATCH",
+    "operationId": "updateLoanApplication",
+    "tag": "Public - Loan Application",
+    "stage": "application"
+  },
+  {
+    "path": "/public/applications/{applicationId}/submit",
+    "method": "POST",
+    "operationId": "submitLoanApplication",
+    "tag": "Public - Loan Application",
+    "stage": "application"
+  },
+  {
+    "path": "/public/parties/{partyId}/applications",
+    "method": "GET",
+    "operationId": "listPartyApplications",
+    "tag": "Public - Loan Application",
+    "stage": "application"
+  },
+  {
+    "path": "/public/parties/{partyId}/available-loan-products",
+    "method": "GET",
+    "operationId": "listAvailableLoanProductsForParty",
+    "tag": "Public - Loan Product",
+    "stage": "application"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans",
+    "method": "GET",
+    "operationId": "listLoansForParty",
+    "tag": "Public - Loan",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}",
+    "method": "GET",
+    "operationId": "getLoanForParty",
+    "tag": "Public - Loan",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/balances",
+    "method": "GET",
+    "operationId": "listLoanBalancesForParty",
+    "tag": "Public - Loan Balance",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/balances/latest",
+    "method": "GET",
+    "operationId": "getLatestLoanBalanceForParty",
+    "tag": "Public - Loan Balance",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/collateral",
+    "method": "GET",
+    "operationId": "listCollateralForPartyLoan",
+    "tag": "Public - Collateral",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/payment-methods",
+    "method": "GET",
+    "operationId": "listPaymentMethodsForPartyLoan",
+    "tag": "Public - Payment Methods",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/payment-methods",
+    "method": "POST",
+    "operationId": "createPaymentMethodForPartyLoan",
+    "tag": "Public - Payment Methods",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/payment-methods/{paymentMethodId}",
+    "method": "PATCH",
+    "operationId": "updatePaymentMethodForPartyLoan",
+    "tag": "Public - Payment Methods",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/payments",
+    "method": "POST",
+    "operationId": "createPaymentIntentForPartyLoan",
+    "tag": "Public - Transaction",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/schedule",
+    "method": "GET",
+    "operationId": "listLoanScheduleForParty",
+    "tag": "Public - Loan Schedule",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/transactions",
+    "method": "GET",
+    "operationId": "listTransactionsForPartyLoan",
+    "tag": "Public - Transaction",
+    "stage": "servicing"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/communications",
+    "method": "GET",
+    "operationId": "listCommunicationsForPartyLoan",
+    "tag": "Public - Communication Log",
+    "stage": "delinquency"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/delinquency",
+    "method": "GET",
+    "operationId": "listDelinquencyForPartyLoan",
+    "tag": "Public - Delinquency",
+    "stage": "delinquency"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/documents",
+    "method": "GET",
+    "operationId": "listDocumentsForOnboardingSession",
+    "tag": "Public - Document",
+    "stage": "misc-services"
+  },
+  {
+    "path": "/public/onboarding-sessions/{sessionId}/documents",
+    "method": "POST",
+    "operationId": "createOnboardingDocumentMetadata",
+    "tag": "Public - Document",
+    "stage": "misc-services"
+  },
+  {
+    "path": "/public/parties/{partyId}/loans/{loanId}/documents",
+    "method": "GET",
+    "operationId": "listDocumentsForPartyLoan",
+    "tag": "Public - Document",
+    "stage": "misc-services"
+  }
+]

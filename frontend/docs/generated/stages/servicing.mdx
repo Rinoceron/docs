@@ -1,0 +1,75 @@
+---
+title: Servicing
+description: Public Servicing endpoints
+---
+
+# Servicing
+
+Endpoints below are generated from `backend/api/src/routes/endpointInventory.json` and filtered to `/public/*` for this stage.
+
+## `GET /public/parties/{partyId}/loans`
+
+List loans booked or visible to the party (borrower-facing loan portfolio view).
+
+- `operationId`: `listLoansForParty`
+
+## `GET /public/parties/{partyId}/loans/{loanId}`
+
+Return details for a single loan that belongs to the party.
+
+- `operationId`: `getLoanForParty`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/balances`
+
+List historical or periodic loan balance snapshots for the loan.
+
+- `operationId`: `listLoanBalancesForParty`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/balances/latest`
+
+Return the most recent outstanding balance and related figures for the loan.
+
+- `operationId`: `getLatestLoanBalanceForParty`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/collateral`
+
+List collateral items securing the loan as exposed to the borrower portal.
+
+- `operationId`: `listCollateralForPartyLoan`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/payment-methods`
+
+List saved payment methods the borrower may use for this loan.
+
+- `operationId`: `listPaymentMethodsForPartyLoan`
+
+## `POST /public/parties/{partyId}/loans/{loanId}/payment-methods`
+
+Tokenize or register a new payment method for repayments on this loan.
+
+- `operationId`: `createPaymentMethodForPartyLoan`
+
+## `PATCH /public/parties/{partyId}/loans/{loanId}/payment-methods/{paymentMethodId}`
+
+Update metadata or default flags on an existing borrower payment method.
+
+- `operationId`: `updatePaymentMethodForPartyLoan`
+
+## `POST /public/parties/{partyId}/loans/{loanId}/payments`
+
+Initiate a borrower payment (intent or charge) against the loan balance.
+
+- `operationId`: `createPaymentIntentForPartyLoan`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/schedule`
+
+Return the amortization or repayment schedule installments for the loan.
+
+- `operationId`: `listLoanScheduleForParty`
+
+## `GET /public/parties/{partyId}/loans/{loanId}/transactions`
+
+List payments, fees, and other ledger transactions visible to the borrower for this loan.
+
+- `operationId`: `listTransactionsForPartyLoan`
+
