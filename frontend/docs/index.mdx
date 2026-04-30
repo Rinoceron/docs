@@ -7,10 +7,11 @@ description: Public API reference for Rhino Asset integrations.
 
 This site documents public Rhino Asset endpoints.
 
-- Public documentation is generated from `backend/api/src/routes/endpointInventory.json`
+- Public documentation is generated from `backend/api/src/index.ts` route definitions
+- Route metadata (stage/tag/operationId) is overlaid from `backend/api/src/routes/endpointInventory.json`
 - Human-readable descriptions come from `frontend/docs/data/endpointDocumentation.json`
 - Only routes under `/public/*` are included in the OpenAPI file; **Misc Services** also lists `GET /health`
 - Use the **API reference** group for the interactive OpenAPI playground (request/response examples)
-- Navigation groups follow `backend/api/src/routes/*` stage folders
+- Navigation groups follow route stages from inventory metadata
 
 Run `npm run docs:generate` whenever backend routes change.

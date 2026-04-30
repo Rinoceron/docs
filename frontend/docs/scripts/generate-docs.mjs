@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const docsRoot = path.resolve(__dirname, "..");
 const repoRoot = path.resolve(docsRoot, "..", "..");
 const inventoryPath = path.join(repoRoot, "backend", "api", "src", "routes", "endpointInventory.json");
+const workerIndexPath = path.join(repoRoot, "backend", "api", "src", "index.ts");
 const documentationPath = path.join(docsRoot, "data", "endpointDocumentation.json");
 const generatedRoot = path.join(docsRoot, "generated");
 const stagePagesDir = path.join(generatedRoot, "stages");
@@ -21,6 +22,10 @@ const stageOrder = [
 ];
 
 const methodOrder = ["GET", "POST", "PUT", "PATCH", "DELETE"];
+
+function endpointKey(method, routePath) {
+  return `${method.toUpperCase()} ${routePath}`;
+}
 
 function titleCase(value) {
   return value
@@ -42,6 +47,53 @@ function sortEndpoints(a, b) {
 function operationSummary(endpoint) {
   const resource = endpoint.path.split("/").filter(Boolean).at(-1) ?? "resource";
   return `${endpoint.method.toUpperCase()} ${resource}`;
+}
+
+function parseHandlerStages(indexSource) {
+  const importPattern = /import\s+\{\s*([A-Za-z0-9_]+)\s*\}\s+from\s+"\.\/routes\/([^/]+)\//g;
+  const handlerStage = new Map();
+  let match = importPattern.exec(indexSource);
+  while (match) {
+    const [, handler, stage] = match;
+    handlerStage.set(handler, stage);
+    match = importPattern.exec(indexSource);
+  }
+  return handlerStage;
+}
+
+function parseRoutesFromIndex(indexSource) {
+  const routePattern =
+    /\{\s*method:\s*"([A-Z]+)"\s*,\s*path:\s*"([^"]+)"\s*,\s*handler:\s*([A-Za-z0-9_]+)\s*\}/g;
+  const routes = [];
+  let match = routePattern.exec(indexSource);
+  while (match) {
+    const [, method, routePath, handler] = match;
+    routes.push({ method, path: routePath, handler });
+    match = routePattern.exec(indexSource);
+  }
+  return routes;
+}
+
+function mergeRouteMetadata(indexRoutes, inventory, handlerStage) {
+  const inventoryByKey = new Map(
+    inventory
+      .filter((item) => typeof item?.method === "string" && typeof item?.path === "string")
+      .map((item) => [endpointKey(item.method, item.path), item]),
+  );
+
+  const merged = indexRoutes.map((route) => {
+    const key = endpointKey(route.method, route.path);
+    const fromInventory = inventoryByKey.get(key);
+    return {
+      path: route.path,
+      method: route.method,
+      operationId: fromInventory?.operationId ?? route.handler,
+      tag: fromInventory?.tag ?? (route.path.startsWith("/public/") ? "Public" : "Internal"),
+      stage: fromInventory?.stage ?? handlerStage.get(route.handler) ?? "misc-services",
+    };
+  });
+
+  return merged;
 }
 
 function buildComponentsSchemas() {
@@ -317,8 +369,8 @@ function stagePageContent(stage, endpoints, docById) {
   const title = titleCase(stage);
   const intro =
     stage === "misc-services"
-      ? `Endpoints below include \`/public/*\` routes in the **${title}** category plus \`GET /health\` (platform health check). Generated from \`backend/api/src/routes/endpointInventory.json\` and the docs metadata file.`
-      : `Endpoints below are generated from \`backend/api/src/routes/endpointInventory.json\` and filtered to \`/public/*\` for this stage.`;
+      ? `Endpoints below include \`/public/*\` routes in the **${title}** category plus \`GET /health\` (platform health check). Generated from \`backend/api/src/index.ts\` route definitions (with metadata from \`backend/api/src/routes/endpointInventory.json\`).`
+      : `Endpoints below are generated from \`backend/api/src/index.ts\` route definitions and filtered to \`/public/*\` for this stage.`;
 
   const lines = [
     `---`,
@@ -383,8 +435,12 @@ function buildMintConfig(stageNames) {
 }
 
 async function main() {
+  const rawIndex = await readFile(workerIndexPath, "utf8");
   const rawInventory = await readFile(inventoryPath, "utf8");
   const inventory = JSON.parse(rawInventory);
+  const handlerStage = parseHandlerStages(rawIndex);
+  const routesFromIndex = parseRoutesFromIndex(rawIndex);
+  const mergedInventory = mergeRouteMetadata(routesFromIndex, inventory, handlerStage);
 
   let docById = {};
   try {
@@ -394,7 +450,7 @@ async function main() {
     console.warn("No endpointDocumentation.json found; descriptions will be minimal.");
   }
 
-  const publicEndpoints = inventory
+  const publicEndpoints = mergedInventory
     .filter((endpoint) => typeof endpoint.path === "string" && endpoint.path.startsWith("/public/"))
     .sort((a, b) => {
       const stageAIndex = stageOrder.indexOf(a.stage);
