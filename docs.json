@@ -14,40 +14,40 @@
     },
     {
       "group": "API reference",
-      "openapi": "generated/openapi.public.json"
+      "openapi": "api-reference/openapi.public.json"
     },
     {
       "group": "Onboarding",
       "pages": [
-        "generated/stages/onboarding"
+        "api-reference/stages/onboarding"
       ]
     },
     {
       "group": "Application",
       "pages": [
-        "generated/stages/application"
+        "api-reference/stages/application"
       ]
     },
     {
       "group": "Servicing",
       "pages": [
-        "generated/stages/servicing"
+        "api-reference/stages/servicing"
       ]
     },
     {
       "group": "Delinquency",
       "pages": [
-        "generated/stages/delinquency"
+        "api-reference/stages/delinquency"
       ]
     },
     {
       "group": "Misc Services",
       "pages": [
-        "generated/stages/misc-services"
+        "api-reference/stages/misc-services"
       ]
     }
   ],
-  "openapi": "generated/openapi.public.json",
+  "openapi": "api-reference/openapi.public.json",
   "api": {
     "playground": {
       "display": "interactive"
