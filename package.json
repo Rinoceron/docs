@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "docs:generate": "node frontend/docs/scripts/generate-docs.mjs"
+    "docs:generate": "node scripts/generate-docs.mjs"
   },
   "devDependencies": {
     "playwright": "^1.58.2"

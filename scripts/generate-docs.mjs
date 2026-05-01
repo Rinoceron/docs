@@ -4,11 +4,11 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const docsRoot = path.resolve(__dirname, "..");
-const repoRoot = path.resolve(docsRoot, "..", "..");
+const repoRoot = path.resolve(__dirname, "..");
+const docsRoot = path.join(repoRoot, "frontend", "docs");
 const inventoryPath = path.join(repoRoot, "backend", "api", "src", "routes", "endpointInventory.json");
 const workerIndexPath = path.join(repoRoot, "backend", "api", "src", "index.ts");
-const documentationPath = path.join(docsRoot, "data", "endpointDocumentation.json");
+const documentationPath = path.join(repoRoot, "frontend", "docs-data", "endpointDocumentation.json");
 const apiReferenceRoot = path.join(docsRoot, "api-reference", "rhino");
 const stagePagesDir = path.join(apiReferenceRoot, "stages");
 
