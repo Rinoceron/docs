@@ -9,8 +9,8 @@ const repoRoot = path.resolve(docsRoot, "..", "..");
 const inventoryPath = path.join(repoRoot, "backend", "api", "src", "routes", "endpointInventory.json");
 const workerIndexPath = path.join(repoRoot, "backend", "api", "src", "index.ts");
 const documentationPath = path.join(docsRoot, "data", "endpointDocumentation.json");
-const generatedRoot = path.join(docsRoot, "generated");
-const stagePagesDir = path.join(generatedRoot, "stages");
+const apiReferenceRoot = path.join(docsRoot, "api-reference");
+const stagePagesDir = path.join(apiReferenceRoot, "stages");
 
 const stageOrder = [
   "onboarding",
@@ -660,8 +660,8 @@ function stagePageContent(stage, endpoints, docById) {
   const title = titleCase(stage);
   const intro =
     stage === "misc-services"
-      ? `Endpoints below include \`/public/*\` routes in the **${title}** category plus \`GET /health\` (platform health check). Generated from \`backend/api/src/index.ts\` route definitions (with metadata from \`backend/api/src/routes/endpointInventory.json\`).`
-      : `Endpoints below are generated from \`backend/api/src/index.ts\` route definitions and filtered to \`/public/*\` for this stage.`;
+      ? `Endpoints below include \`/public/*\` routes in the **${title}** category plus \`GET /health\` (platform health check). Generated from backend route definitions with metadata from the inventory file.`
+      : `Endpoints below are generated from backend route definitions and filtered to \`/public/*\` for this stage.`;
 
   const lines = [
     `---`,
@@ -705,14 +705,14 @@ function buildMintConfig(stageNames) {
       },
       {
         group: "API reference",
-        openapi: "generated/openapi.public.json",
+        openapi: "api-reference/openapi.public.json",
       },
       ...stageNames.map((stage) => ({
         group: titleCase(stage),
-        pages: [`generated/stages/${stage}`],
+        pages: [`api-reference/stages/${stage}`],
       })),
     ],
-    openapi: "generated/openapi.public.json",
+    openapi: "api-reference/openapi.public.json",
     api: {
       playground: {
         display: "interactive",
@@ -798,8 +798,8 @@ async function main() {
 
   await mkdir(stagePagesDir, { recursive: true });
 
-  const publicInventoryPath = path.join(generatedRoot, "public-endpoints.json");
-  const openApiPath = path.join(generatedRoot, "openapi.public.json");
+  const publicInventoryPath = path.join(apiReferenceRoot, "public-endpoints.json");
+  const openApiPath = path.join(apiReferenceRoot, "openapi.public.json");
   const mintPath = path.join(docsRoot, "mint.json");
   const docsJsonPath = path.join(docsRoot, "docs.json");
 
