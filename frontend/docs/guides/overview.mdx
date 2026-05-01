@@ -1,0 +1,43 @@
+---
+title: "System Overview"
+description: "How Rhino's operating system is structured across business layers."
+---
+
+# System Overview
+
+Rhino is not a single lending endpoint. It is an orchestration system across eight layers of operational truth:
+
+1. Onboarding orchestration
+2. Identity and compliance
+3. Underwriting and risk
+4. Loan origination
+5. Bitcoin acquisition and custody
+6. Payment servicing and accounting
+7. Delinquency and recovery
+8. Communication and evidence
+
+## Core business sequence
+
+Visitor -> Onboarding Session -> Verification -> Requirements and Documents -> Compliance Decision -> Party Creation -> Loan Application -> Underwriting -> Loan Origination -> BTC Acquisition and Collateral Lock -> Repayment Servicing -> Balance Tracking -> Delinquency or Payoff -> Closure
+
+## Operating rules
+
+### Rule 1: onboarding gates everything
+
+No onboarding approval means no party and no loan.
+
+### Rule 2: schedule is not reality
+
+- Schedule = expected plan
+- Transaction = executed cash movement
+- Balance = accounting truth at a point in time
+
+### Rule 3: collateral is the risk engine
+
+The system's downside control converges on how much BTC collateral remains and when it can be executed.
+
+## Where to go next
+
+- For entry and customer creation: [Onboarding to Party](/guides/onboarding-to-party)
+- For credit lifecycle: [Application to Origination](/guides/application-to-origination)
+- For repayment and accounting: [Servicing and Balances](/guides/servicing-and-balances)

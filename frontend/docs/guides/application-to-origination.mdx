@@ -1,0 +1,35 @@
+---
+title: "Application to Origination"
+description: "How approved parties become active loans."
+---
+
+# Application to Origination
+
+This stage transforms customer intent into a contractual loan.
+
+## Trigger
+
+- Party is active
+- Onboarding has been approved
+
+## State flow
+
+1. Create loan application
+2. Capture amount, term, and purpose
+3. Submit application for decision
+4. Evaluate risk and underwriting inputs
+5. Approve or decline
+6. Create loan contract for approved applications
+7. Move loan from pending funding to current
+
+## What changes in data
+
+- `loan_application` tracks intent and decision lifecycle
+- Risk outputs (tier and score) influence decision and terms
+- `loan` links party, application, and product configuration
+- `loan_product` enforces amount/term/collateral constraints
+
+## API families to call next
+
+- Application endpoints in [Application API](/api-reference/rhino/stages/application)
+- Loan and funding operations in [Servicing API](/api-reference/rhino/stages/servicing)

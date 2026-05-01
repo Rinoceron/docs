@@ -1,0 +1,39 @@
+---
+title: "Onboarding to Party"
+description: "How Rhino converts a visitor into an approved customer record."
+---
+
+# Onboarding to Party
+
+This stage is the entry gate for the entire platform.
+
+## Trigger
+
+A visitor starts onboarding from the website or another approved channel.
+
+## State flow
+
+1. Create onboarding session
+2. Capture identity and business profile
+3. Verify contact methods
+4. Generate and satisfy policy requirements
+5. Collect and review supporting documents
+6. Record compliance decision
+7. Create party after approval
+
+## What changes in data
+
+- `onboarding_session` tracks session lifecycle and current step
+- `verification_event` tracks email/phone verification outcomes
+- `onboarding_requirements` tracks checklist completion
+- `document` stores evidence linked to the session
+- `party` is created only after approval
+
+## API families to call next
+
+- Session and requirements endpoints in [Onboarding API](/api-reference/rhino/stages/onboarding)
+- After approval, party-based flows in onboarding/application stages
+
+## Critical transition
+
+`party` creation is the control point where an applicant becomes an active customer entity.

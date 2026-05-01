@@ -1,64 +1,96 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
-  "name": "Rhino Asset API Docs",
-  "logo": {
-    "dark": "/artifacts/Logo no background.png",
-    "light": "/artifacts/Logo no background.png"
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Rhino Asset Capital Docs",
+  "colors": {
+    "primary": "#C79D3C",
+    "light": "#D7B467",
+    "dark": "#12294B"
   },
-  "navigation": [
-    {
-      "group": "Introduction",
-      "pages": [
-        "index"
-      ]
-    },
-    {
-      "group": "API reference",
-      "openapi": "api-reference/openapi.public.json"
-    },
-    {
-      "group": "Onboarding",
-      "pages": [
-        "api-reference/stages/onboarding"
-      ]
-    },
-    {
-      "group": "Application",
-      "pages": [
-        "api-reference/stages/application"
-      ]
-    },
-    {
-      "group": "Servicing",
-      "pages": [
-        "api-reference/stages/servicing"
-      ]
-    },
-    {
-      "group": "Delinquency",
-      "pages": [
-        "api-reference/stages/delinquency"
-      ]
-    },
-    {
-      "group": "Misc Services",
-      "pages": [
-        "api-reference/stages/misc-services"
+  "favicon": "/images/rhino-favicon.png",
+  "logo": {
+    "light": "/images/rhino-logo.png",
+    "dark": "/images/rhino-logo.png"
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Main website",
+        "href": "https://rhino-asset.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Contact",
+      "href": "mailto:support@rhino-asset.com"
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Business Flow",
+            "pages": [
+              "index",
+              "guides/overview",
+              "guides/onboarding-to-party",
+              "guides/application-to-origination",
+              "guides/servicing-and-balances",
+              "guides/delinquency-and-collateral"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Rhino API",
+            "pages": [
+              "api-reference/rhino/index",
+              "api-reference/rhino/stages/onboarding",
+              "api-reference/rhino/stages/application",
+              "api-reference/rhino/stages/servicing",
+              "api-reference/rhino/stages/delinquency",
+              "api-reference/rhino/stages/misc-services"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "API domain",
+          "href": "https://api.rhino-asset.com",
+          "icon": "server"
+        },
+        {
+          "anchor": "GitHub",
+          "href": "https://github.com/Rinoceron/docs",
+          "icon": "github"
+        }
       ]
     }
-  ],
-  "openapi": "api-reference/openapi.public.json",
-  "api": {
-    "playground": {
-      "display": "interactive"
-    },
-    "examples": {
-      "defaults": "all",
-      "languages": [
-        "curl",
-        "javascript",
-        "python"
-      ]
+  },
+  "contextual": {
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/Rinoceron/docs",
+      "website": "https://rhino-asset.com"
     }
   }
 }

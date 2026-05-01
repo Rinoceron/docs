@@ -1,0 +1,35 @@
+---
+title: "Delinquency and Collateral"
+description: "How Rhino handles missed payments and collateral execution."
+---
+
+# Delinquency and Collateral
+
+Delinquency is managed as controlled asset execution, not only communication follow-up.
+
+## Trigger
+
+- Missed payment
+- `days_past_due > 0`
+
+## Stage progression
+
+`0_7 -> 8_15 -> 16_30 -> REPO`
+
+## What changes in data
+
+- `delinquency` tracks stage and case-level evolution
+- `collateral.remaining` decreases when execution occurs
+- `transaction` includes chargeoff/adjustment events during execution
+- `comm_log` records escalation evidence
+
+## Recovery modes
+
+- Partial liquidation
+- Full liquidation
+- Communication escalation with legal-grade traceability
+
+## API families to call next
+
+- Delinquency endpoints in [Delinquency API](/api-reference/rhino/stages/delinquency)
+- Supporting documentation endpoints in [Misc Services API](/api-reference/rhino/stages/misc-services)

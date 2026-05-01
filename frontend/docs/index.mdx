@@ -1,17 +1,32 @@
 ---
-title: Rhino Asset API
-description: Public API reference for Rhino Asset integrations.
+title: "Rhino Asset Capital Docs"
+description: "Operational guides and API references for Rhino's public platform."
 ---
 
-# Rhino Asset API
+![Rhino Asset Capital](/images/rhino-hero.png)
 
-This site documents public Rhino Asset endpoints.
+Rhino operates as a closed-loop financial system spanning onboarding, risk, origination, servicing, delinquency, and evidence.
 
-- Public documentation is generated from `backend/api/src/index.ts` route definitions
-- Route metadata (stage/tag/operationId) is overlaid from `backend/api/src/routes/endpointInventory.json`
-- Human-readable descriptions come from `frontend/docs/data/endpointDocumentation.json`
-- Only routes under `/public/*` are included in the OpenAPI file; **Misc Services** also lists `GET /health`
-- Use the **API reference** group for the interactive OpenAPI playground (request/response examples)
-- Navigation groups follow route stages from inventory metadata
+Use this documentation to understand:
 
-Run `npm run docs:generate` whenever backend routes change.
+- how a visitor moves from onboarding to party creation
+- how applications become active loans
+- how schedule, transactions, and balances interact
+- which public APIs correspond to each business stage
+
+<CardGroup cols={2}>
+  <Card title="Business Flow Guides" icon="sitemap" href="/guides/overview">
+    Learn the operating model, lifecycle gates, and state transitions.
+  </Card>
+  <Card title="Rhino API Reference" icon="terminal" href="/api-reference/rhino/index">
+    Browse public endpoints grouped by onboarding, application, servicing, and delinquency stages.
+  </Card>
+</CardGroup>
+
+## Recommended reading order
+
+1. [System Overview](/guides/overview)
+2. [Onboarding to Party](/guides/onboarding-to-party)
+3. [Application to Origination](/guides/application-to-origination)
+4. [Servicing and Balances](/guides/servicing-and-balances)
+5. [Delinquency and Collateral](/guides/delinquency-and-collateral)

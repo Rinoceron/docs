@@ -9,7 +9,7 @@ const repoRoot = path.resolve(docsRoot, "..", "..");
 const inventoryPath = path.join(repoRoot, "backend", "api", "src", "routes", "endpointInventory.json");
 const workerIndexPath = path.join(repoRoot, "backend", "api", "src", "index.ts");
 const documentationPath = path.join(docsRoot, "data", "endpointDocumentation.json");
-const apiReferenceRoot = path.join(docsRoot, "api-reference");
+const apiReferenceRoot = path.join(docsRoot, "api-reference", "rhino");
 const stagePagesDir = path.join(apiReferenceRoot, "stages");
 
 const stageOrder = [
@@ -690,41 +690,6 @@ function stagePageContent(stage, endpoints, docById) {
   return lines.join("\n");
 }
 
-function buildMintConfig(stageNames) {
-  return {
-    $schema: "https://mintlify.com/schema.json",
-    name: "Rhino Asset API Docs",
-    logo: {
-      dark: "/artifacts/Logo no background.png",
-      light: "/artifacts/Logo no background.png",
-    },
-    navigation: [
-      {
-        group: "Introduction",
-        pages: ["index"],
-      },
-      {
-        group: "API reference",
-        openapi: "api-reference/openapi.public.json",
-      },
-      ...stageNames.map((stage) => ({
-        group: titleCase(stage),
-        pages: [`api-reference/stages/${stage}`],
-      })),
-    ],
-    openapi: "api-reference/openapi.public.json",
-    api: {
-      playground: {
-        display: "interactive",
-      },
-      examples: {
-        defaults: "all",
-        languages: ["curl", "javascript", "python"],
-      },
-    },
-  };
-}
-
 async function main() {
   const rawIndex = await readFile(workerIndexPath, "utf8");
   const rawInventory = await readFile(inventoryPath, "utf8");
@@ -800,8 +765,6 @@ async function main() {
 
   const publicInventoryPath = path.join(apiReferenceRoot, "public-endpoints.json");
   const openApiPath = path.join(apiReferenceRoot, "openapi.public.json");
-  const mintPath = path.join(docsRoot, "mint.json");
-  const docsJsonPath = path.join(docsRoot, "docs.json");
 
   const enrichedPublicEndpoints = buildEnrichedPublicEndpoints(publicEndpoints, docById, inferredByOperation);
 
@@ -813,10 +776,6 @@ async function main() {
     const pagePath = path.join(stagePagesDir, `${stage}.mdx`);
     await writeFile(pagePath, `${stagePageContent(stage, endpoints, docById)}\n`);
   }
-
-  const mintConfig = buildMintConfig(stageNames);
-  await writeFile(mintPath, `${JSON.stringify(mintConfig, null, 2)}\n`);
-  await writeFile(docsJsonPath, `${JSON.stringify(mintConfig, null, 2)}\n`);
 
   console.log(`Generated docs for ${publicEndpoints.length} public endpoints (+ /health in misc page).`);
 }

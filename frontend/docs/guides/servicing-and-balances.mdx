@@ -1,0 +1,37 @@
+---
+title: "Servicing and Balances"
+description: "How Rhino manages repayment operations and accounting truth."
+---
+
+# Servicing and Balances
+
+Servicing controls repayment execution after a loan is active.
+
+## Trigger
+
+Loan transitions to `CURRENT` after origination/funding.
+
+## State flow
+
+1. Generate schedule rows (expected installments)
+2. Register payment methods
+3. Process transactions (payments, disbursements, fees)
+4. Allocate payment components
+5. Update balance snapshots
+6. Evaluate payoff eligibility
+
+## What changes in data
+
+- `loan_schedule` defines expected due dates and components
+- `transaction` records actual executed events
+- `loan_balance` stores principal, interest, fees, and payoff truth
+- `payment_methods` controls where funds are moved from/to
+
+## Operational rule
+
+Do not use schedule alone for financial truth. Use `transaction` plus `loan_balance`.
+
+## API families to call next
+
+- Loan servicing endpoints in [Servicing API](/api-reference/rhino/stages/servicing)
+- If missed payments occur, continue in [Delinquency API](/api-reference/rhino/stages/delinquency)
