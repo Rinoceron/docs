@@ -61,6 +61,18 @@ function parseHandlerStages(indexSource) {
   return handlerStage;
 }
 
+function parseHandlerImports(indexSource) {
+  const importPattern = /import\s+\{\s*([A-Za-z0-9_]+)\s*\}\s+from\s+"(\.\/routes\/[^"]+)";/g;
+  const handlerFileMap = new Map();
+  let match = importPattern.exec(indexSource);
+  while (match) {
+    const [, handler, relativeFile] = match;
+    handlerFileMap.set(handler, path.join(repoRoot, "backend", "api", "src", `${relativeFile}.ts`));
+    match = importPattern.exec(indexSource);
+  }
+  return handlerFileMap;
+}
+
 function parseRoutesFromIndex(indexSource) {
   const routePattern =
     /\{\s*method:\s*"([A-Z]+)"\s*,\s*path:\s*"([^"]+)"\s*,\s*handler:\s*([A-Za-z0-9_]+)\s*\}/g;
@@ -72,6 +84,226 @@ function parseRoutesFromIndex(indexSource) {
     match = routePattern.exec(indexSource);
   }
   return routes;
+}
+
+function parseRequiredFieldsFromMessage(message) {
+  if (typeof message !== "string") return [];
+  const directMatches = [...message.matchAll(/([a-zA-Z_][a-zA-Z0-9_]*)\s+is required/g)].map(
+    (match) => match[1],
+  );
+  if (directMatches.length > 0) return directMatches;
+  const andRequired = message.match(/([a-zA-Z_][a-zA-Z0-9_]*(?:\s+and\s+[a-zA-Z_][a-zA-Z0-9_]*)+)\s+are required/);
+  if (!andRequired) return [];
+  return andRequired[1].split(/\s+and\s+/).map((part) => part.trim());
+}
+
+function collectStringTypedFields(source) {
+  const fields = new Set();
+  for (const match of source.matchAll(/typeof\s+rec\.([a-zA-Z_][a-zA-Z0-9_]*)\s*===\s*"string"/g)) {
+    fields.add(match[1]);
+  }
+  for (const match of source.matchAll(/body\?\.\s*([a-zA-Z_][a-zA-Z0-9_]*)/g)) {
+    fields.add(match[1]);
+  }
+  return fields;
+}
+
+function collectRequiredFields(source) {
+  const required = new Set();
+  for (const match of source.matchAll(/!\s*(?:body\?\.)?([a-zA-Z_][a-zA-Z0-9_]*)/g)) {
+    required.add(match[1]);
+  }
+  for (const match of source.matchAll(/JSON\.stringify\(\{\s*error:\s*"([^"]+)"/g)) {
+    for (const field of parseRequiredFieldsFromMessage(match[1])) {
+      required.add(field);
+    }
+  }
+  return required;
+}
+
+function toSerializableExample(value) {
+  if (value === null || typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+    return value;
+  }
+  if (Array.isArray(value)) {
+    return value.map((entry) => toSerializableExample(entry));
+  }
+  if (typeof value === "object") {
+    const obj = {};
+    for (const [key, entry] of Object.entries(value)) {
+      obj[key] = toSerializableExample(entry);
+    }
+    return obj;
+  }
+  return String(value);
+}
+
+function tryParseObjectLiteral(literalText) {
+  try {
+    const parsed = Function(`"use strict"; return (${literalText});`)();
+    return toSerializableExample(parsed);
+  } catch {
+    return null;
+  }
+}
+
+function buildSchemaFromExample(example) {
+  if (example === null) return { type: "null" };
+  if (typeof example === "string") return { type: "string" };
+  if (typeof example === "number") return { type: "number" };
+  if (typeof example === "boolean") return { type: "boolean" };
+  if (Array.isArray(example)) {
+    return {
+      type: "array",
+      items: example.length > 0 ? buildSchemaFromExample(example[0]) : { type: "object", additionalProperties: true },
+    };
+  }
+  if (typeof example === "object") {
+    const properties = {};
+    const required = [];
+    for (const [key, value] of Object.entries(example)) {
+      properties[key] = buildSchemaFromExample(value);
+      required.push(key);
+    }
+    return {
+      type: "object",
+      properties,
+      ...(required.length > 0 ? { required } : {}),
+      additionalProperties: false,
+    };
+  }
+  return { type: "object", additionalProperties: true };
+}
+
+function defaultResponseDescription(status) {
+  if (status >= 200 && status < 300) return "Successful response";
+  if (status === 400) return "Validation or request format error";
+  if (status === 401) return "Unauthorized";
+  if (status === 403) return "Forbidden";
+  if (status === 404) return "Resource not found";
+  if (status === 500) return "Internal server error";
+  if (status === 501) return "Not implemented (placeholder handler)";
+  if (status === 502) return "Upstream dependency error";
+  return "Response";
+}
+
+function extractJsonResponses(source) {
+  const responses = [];
+  const jsonHelperPattern = /json\(\s*(\{[\s\S]*?\})\s*,\s*(\d{3})\s*\)/g;
+  let match = jsonHelperPattern.exec(source);
+  while (match) {
+    const [, objectLiteral, statusText] = match;
+    const status = Number.parseInt(statusText, 10);
+    const example = tryParseObjectLiteral(objectLiteral);
+    responses.push({
+      status,
+      description: defaultResponseDescription(status),
+      example,
+    });
+    match = jsonHelperPattern.exec(source);
+  }
+
+  const newResponsePattern =
+    /new Response\(\s*JSON\.stringify\(\s*(\{[\s\S]*?\})\s*\)\s*,\s*\{[\s\S]*?status:\s*(\d{3})[\s\S]*?\}\s*\)/g;
+  match = newResponsePattern.exec(source);
+  while (match) {
+    const [, objectLiteral, statusText] = match;
+    const status = Number.parseInt(statusText, 10);
+    const example = tryParseObjectLiteral(objectLiteral);
+    responses.push({
+      status,
+      description: defaultResponseDescription(status),
+      example,
+    });
+    match = newResponsePattern.exec(source);
+  }
+  return responses;
+}
+
+function inferRequestBody(endpoint, source) {
+  const method = endpoint.method.toUpperCase();
+  if (method === "GET" || method === "DELETE") return null;
+  if (!/request\.json\(/.test(source)) {
+    return {
+      required: true,
+      schema: {
+        type: "object",
+        properties: {
+          example_field: { type: "string" },
+        },
+        additionalProperties: true,
+      },
+      example: { example_field: "value" },
+    };
+  }
+
+  const typedFields = collectStringTypedFields(source);
+  const requiredFields = collectRequiredFields(source);
+  const properties = {};
+  for (const field of typedFields) {
+    properties[field] = { type: "string" };
+  }
+  const sortedRequired = Array.from(requiredFields).sort((a, b) => a.localeCompare(b));
+  const example = {};
+  for (const field of Object.keys(properties)) {
+    example[field] = `example_${field}`;
+  }
+  return {
+    required: true,
+    schema: {
+      type: "object",
+      properties: Object.keys(properties).length > 0 ? properties : { example_field: { type: "string" } },
+      ...(sortedRequired.length > 0 ? { required: sortedRequired } : {}),
+      additionalProperties: true,
+    },
+    example: Object.keys(example).length > 0 ? example : { example_field: "value" },
+  };
+}
+
+function inferResponses(endpoint, source) {
+  const collected = extractJsonResponses(source);
+  const deduped = new Map();
+  for (const response of collected) {
+    if (!deduped.has(response.status)) {
+      deduped.set(response.status, response);
+    }
+  }
+
+  if (deduped.size === 0) {
+    const fallbackStatus = endpoint.method.toUpperCase() === "POST" ? 201 : 200;
+    deduped.set(fallbackStatus, {
+      status: fallbackStatus,
+      description: defaultResponseDescription(fallbackStatus),
+      example: { ok: true },
+    });
+    deduped.set(501, {
+      status: 501,
+      description: defaultResponseDescription(501),
+      example: { error: "Not implemented", operation_id: endpoint.operationId },
+    });
+  }
+
+  return Array.from(deduped.values())
+    .sort((a, b) => a.status - b.status)
+    .map((response) => ({
+      status: response.status,
+      description: response.description,
+      schema: buildSchemaFromExample(response.example ?? { result: "response" }),
+      example: response.example ?? { result: "response" },
+    }));
+}
+
+function inferOperationContract(endpoint, source) {
+  if (!source) {
+    return {
+      requestBody: inferRequestBody(endpoint, ""),
+      responses: inferResponses(endpoint, ""),
+    };
+  }
+  return {
+    requestBody: inferRequestBody(endpoint, source),
+    responses: inferResponses(endpoint, source),
+  };
 }
 
 function mergeRouteMetadata(indexRoutes, inventory, handlerStage) {
@@ -87,6 +319,7 @@ function mergeRouteMetadata(indexRoutes, inventory, handlerStage) {
     return {
       path: route.path,
       method: route.method,
+      handler: route.handler,
       operationId: fromInventory?.operationId ?? route.handler,
       tag: fromInventory?.tag ?? (route.path.startsWith("/public/") ? "Public" : "Internal"),
       stage: fromInventory?.stage ?? handlerStage.get(route.handler) ?? "misc-services",
@@ -266,6 +499,46 @@ function buildOperation(endpoint, docById) {
   return operation;
 }
 
+function operationFromContract(endpoint, docById, contract) {
+  const id = endpoint.operationId;
+  const doc = docById[id] ?? {};
+  const operation = {
+    operationId: id,
+    summary: doc.summary ?? operationSummary(endpoint),
+    tags: [titleCase(endpoint.stage)],
+    responses: {},
+  };
+  if (doc.description) {
+    operation.description = doc.description;
+  }
+
+  if (contract.requestBody) {
+    operation.requestBody = {
+      required: contract.requestBody.required,
+      content: {
+        "application/json": {
+          schema: contract.requestBody.schema,
+          example: contract.requestBody.example,
+        },
+      },
+    };
+  }
+
+  for (const response of contract.responses) {
+    operation.responses[String(response.status)] = {
+      description: response.description,
+      content: {
+        "application/json": {
+          schema: response.schema,
+          example: response.example,
+        },
+      },
+    };
+  }
+
+  return operation;
+}
+
 function buildHealthOperation(docById) {
   const doc = docById.health ?? {};
   return {
@@ -330,7 +603,7 @@ function buildWebhooks() {
   };
 }
 
-function buildOpenApi(publicEndpoints, docById) {
+function buildOpenApi(publicEndpoints, docById, inferredByOperation) {
   const paths = {};
 
   for (const endpoint of publicEndpoints) {
@@ -338,7 +611,8 @@ function buildOpenApi(publicEndpoints, docById) {
       paths[endpoint.path] = {};
     }
     const methodKey = endpoint.method.toLowerCase();
-    paths[endpoint.path][methodKey] = buildOperation(endpoint, docById);
+    const contract = inferredByOperation.get(endpoint.operationId) ?? inferOperationContract(endpoint, "");
+    paths[endpoint.path][methodKey] = operationFromContract(endpoint, docById, contract);
   }
 
   paths["/health"] = {
@@ -363,6 +637,23 @@ function buildOpenApi(publicEndpoints, docById) {
       schemas: buildComponentsSchemas(),
     },
   };
+}
+
+function buildEnrichedPublicEndpoints(publicEndpoints, docById, inferredByOperation) {
+  return publicEndpoints.map((endpoint) => {
+    const doc = docById[endpoint.operationId] ?? {};
+    const contract = inferredByOperation.get(endpoint.operationId) ?? inferOperationContract(endpoint, "");
+    return {
+      operationId: endpoint.operationId,
+      method: endpoint.method.toUpperCase(),
+      path: endpoint.path,
+      stage: endpoint.stage,
+      tag: endpoint.tag,
+      description: doc.description ?? operationSummary(endpoint),
+      requestBody: contract.requestBody,
+      responses: contract.responses,
+    };
+  });
 }
 
 function stagePageContent(stage, endpoints, docById) {
@@ -439,6 +730,7 @@ async function main() {
   const rawInventory = await readFile(inventoryPath, "utf8");
   const inventory = JSON.parse(rawInventory);
   const handlerStage = parseHandlerStages(rawIndex);
+  const handlerFileMap = parseHandlerImports(rawIndex);
   const routesFromIndex = parseRoutesFromIndex(rawIndex);
   const mergedInventory = mergeRouteMetadata(routesFromIndex, inventory, handlerStage);
 
@@ -461,6 +753,20 @@ async function main() {
       if (a.stage !== b.stage) return a.stage.localeCompare(b.stage);
       return sortEndpoints(a, b);
     });
+
+  const inferredByOperation = new Map();
+  for (const endpoint of publicEndpoints) {
+    const sourcePath = endpoint.handler ? handlerFileMap.get(endpoint.handler) : undefined;
+    let source = "";
+    if (sourcePath) {
+      try {
+        source = await readFile(sourcePath, "utf8");
+      } catch {
+        source = "";
+      }
+    }
+    inferredByOperation.set(endpoint.operationId, inferOperationContract(endpoint, source));
+  }
 
   const endpointsByStage = new Map();
   for (const endpoint of publicEndpoints) {
@@ -497,8 +803,10 @@ async function main() {
   const mintPath = path.join(docsRoot, "mint.json");
   const docsJsonPath = path.join(docsRoot, "docs.json");
 
-  await writeFile(publicInventoryPath, `${JSON.stringify(publicEndpoints, null, 2)}\n`);
-  await writeFile(openApiPath, `${JSON.stringify(buildOpenApi(publicEndpoints, docById), null, 2)}\n`);
+  const enrichedPublicEndpoints = buildEnrichedPublicEndpoints(publicEndpoints, docById, inferredByOperation);
+
+  await writeFile(publicInventoryPath, `${JSON.stringify(enrichedPublicEndpoints, null, 2)}\n`);
+  await writeFile(openApiPath, `${JSON.stringify(buildOpenApi(publicEndpoints, docById, inferredByOperation), null, 2)}\n`);
 
   for (const stage of stageNames) {
     const endpoints = endpointsByStage.get(stage) ?? [];
