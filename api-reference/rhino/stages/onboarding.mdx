@@ -1,111 +1,495 @@
 ---
 title: Onboarding
-description: Onboarding endpoints
+description: Onboarding endpoints and integration flow
 ---
 
 # Onboarding
 
-Endpoints below are generated from backend route definitions for this stage.
+This page mirrors the onboarding endpoints in `openapi.public.json` in a human-readable flow.
 
-## `GET /onboarding-sessions/{sessionId}`
+## Onboarding Flow
 
-Retrieve the current onboarding session state for a given session identifier.
+1. Retrieve onboarding session details.
+2. Capture or update applicant contact details.
+3. Capture applicant profile and addresses.
+4. Review pending requirements.
+5. Submit for internal review.
+6. Register webhook for `party.ready`.
+7. Retrieve resulting party and party addresses.
 
-- `operationId`: `getOnboardingSession`
+---
 
-## `GET /onboarding-sessions/{sessionId}/addresses`
+## Session
 
-List addresses captured while the user is still in the onboarding session flow.
+### `GET /onboarding-sessions/{sessionId}`
 
-- `operationId`: `listOnboardingAddresses`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}`
+- **operationId:** `getOnboardingSession`
+- **Objective:** Retrieve the current onboarding session state for a given session identifier.
+- **Request payload:** None.
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "getOnboardingSession" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X GET "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}"
+  ```
 
-## `POST /onboarding-sessions/{sessionId}/addresses`
+---
 
-Add a new address record associated with the onboarding session before party finalization.
+## Onboarding Addresses (Session Scope)
 
-- `operationId`: `createOnboardingAddress`
+### `GET /onboarding-sessions/{sessionId}/addresses`
 
-## `PATCH /onboarding-sessions/{sessionId}/addresses/{addressId}`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/addresses`
+- **operationId:** `listOnboardingAddresses`
+- **Objective:** List addresses captured while the user is still in the onboarding session flow.
+- **Request payload:** None.
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "listOnboardingAddresses" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X GET "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/addresses"
+  ```
 
-Update an existing onboarding-session address (partial update).
+### `POST /onboarding-sessions/{sessionId}/addresses`
 
-- `operationId`: `updateOnboardingAddress`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/addresses`
+- **operationId:** `createOnboardingAddress`
+- **Objective:** Add a new address record associated with the onboarding session before party finalization.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "createOnboardingAddress" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/addresses" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-## `PUT /onboarding-sessions/{sessionId}/applicant-profile`
+### `PATCH /onboarding-sessions/{sessionId}/addresses/{addressId}`
 
-Create or replace the applicant profile details collected during onboarding.
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/addresses/{addressId}`
+- **operationId:** `updateOnboardingAddress`
+- **Objective:** Update an existing onboarding-session address (partial update).
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "updateOnboardingAddress" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X PATCH "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/addresses/{addressId}" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-- `operationId`: `upsertApplicantProfile`
+---
 
-## `POST /onboarding-sessions/{sessionId}/contact/email`
+## Applicant Profile
 
-Submit or update the applicant email address as part of contact verification during onboarding.
+### `PUT /onboarding-sessions/{sessionId}/applicant-profile`
 
-- `operationId`: `submitOnboardingEmail`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/applicant-profile`
+- **operationId:** `upsertApplicantProfile`
+- **Objective:** Create or replace the applicant profile details collected during onboarding.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "upsertApplicantProfile" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X PUT "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/applicant-profile" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-## `POST /onboarding-sessions/{sessionId}/contact/email/retry`
+---
 
-Request a new email verification code or retry the email verification step.
+## Contact Verification
 
-- `operationId`: `retryOnboardingEmailVerification`
+### `POST /onboarding-sessions/{sessionId}/contact/email`
 
-## `POST /onboarding-sessions/{sessionId}/contact/phone`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/contact/email`
+- **operationId:** `submitOnboardingEmail`
+- **Objective:** Submit or update the applicant email address as part of contact verification during onboarding.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "submitOnboardingEmail" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/contact/email" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-Submit or update the applicant phone number for SMS or call verification during onboarding.
+### `POST /onboarding-sessions/{sessionId}/contact/email/retry`
 
-- `operationId`: `submitOnboardingPhone`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/contact/email/retry`
+- **operationId:** `retryOnboardingEmailVerification`
+- **Objective:** Request a new email verification code or retry the email verification step.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "retryOnboardingEmailVerification" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/contact/email/retry" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-## `POST /onboarding-sessions/{sessionId}/contact/phone/retry`
+### `POST /onboarding-sessions/{sessionId}/contact/phone`
 
-Request a new phone verification code or retry the phone verification step.
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/contact/phone`
+- **operationId:** `submitOnboardingPhone`
+- **Objective:** Submit or update the applicant phone number for SMS or call verification during onboarding.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "submitOnboardingPhone" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/contact/phone" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-- `operationId`: `retryOnboardingPhoneVerification`
+### `POST /onboarding-sessions/{sessionId}/contact/phone/retry`
 
-## `GET /onboarding-sessions/{sessionId}/party`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/contact/phone/retry`
+- **operationId:** `retryOnboardingPhoneVerification`
+- **Objective:** Request a new phone verification code or retry the phone verification step.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "retryOnboardingPhoneVerification" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/contact/phone/retry" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-Resolve and return the party record linked to the onboarding session, if one exists. After approval, partners may also receive the same payload via the party.ready outbound webhook.
+---
 
-- `operationId`: `getPartyBySessionId`
+## Requirements and Submission
 
-## `GET /onboarding-sessions/{sessionId}/requirements`
+### `GET /onboarding-sessions/{sessionId}/requirements`
 
-List outstanding onboarding requirements or checklist items the applicant must satisfy.
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/requirements`
+- **operationId:** `listPendingOnboardingRequirements`
+- **Objective:** List outstanding onboarding requirements or checklist items the applicant must satisfy.
+- **Request payload:** None.
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "listPendingOnboardingRequirements" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X GET "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/requirements"
+  ```
 
-- `operationId`: `listPendingOnboardingRequirements`
+### `POST /onboarding-sessions/{sessionId}/submit`
 
-## `POST /onboarding-sessions/{sessionId}/submit`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/submit`
+- **operationId:** `submitOnboardingForReview`
+- **Objective:** Submit the completed onboarding package for internal review or underwriting handoff.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "submitOnboardingForReview" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/submit" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-Submit the completed onboarding package for internal review or underwriting handoff.
+---
 
-- `operationId`: `submitOnboardingForReview`
+## Party Resolution and Webhook Registration
 
-## `PUT /onboarding-sessions/{sessionId}/webhook`
+### `GET /onboarding-sessions/{sessionId}/party`
 
-Register or update the HTTPS URL (and optional signing secret) where Rhino POSTs a party.ready event when internal onboarding is approved with a party_id.
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/party`
+- **operationId:** `getPartyBySessionId`
+- **Objective:** Resolve and return the party record linked to the onboarding session, if one exists. After approval, partners may also receive the same payload via the `party.ready` outbound webhook.
+- **Request payload:** None.
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "getPartyBySessionId" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X GET "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/party"
+  ```
 
-- `operationId`: `registerOnboardingSessionWebhook`
+### `PUT /onboarding-sessions/{sessionId}/webhook`
 
-## `GET /parties/{partyId}`
+- **OpenAPI path:** `/public/onboarding-sessions/{sessionId}/webhook`
+- **operationId:** `registerOnboardingSessionWebhook`
+- **Objective:** Register or update the HTTPS URL (and optional signing secret) where Rhino POSTs a `party.ready` event when internal onboarding is approved with a `party_id`.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    {
+      "webhook_url": "example_webhook_url",
+      "webhook_secret": "example_webhook_secret"
+    }
+    ```
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "result": "response" }
+      ```
+  - `400 Validation or request format error`
+    - Example:
+      ```json
+      { "error": "Invalid path" }
+      ```
+  - `500 Internal server error`
+    - Example:
+      ```json
+      { "error": "Server misconfiguration" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X PUT "https://api.rhino-asset.com/public/onboarding-sessions/{sessionId}/webhook" \
+    -H "Content-Type: application/json" \
+    -d '{"webhook_url":"example_webhook_url","webhook_secret":"example_webhook_secret"}'
+  ```
 
-Fetch a party profile and core attributes for a known party identifier.
+---
 
-- `operationId`: `getParty`
+## Party Endpoints Used After Onboarding
 
-## `GET /parties/{partyId}/addresses`
+### `GET /parties/{partyId}`
 
-List all addresses on file for the party after onboarding has produced a party record.
+- **OpenAPI path:** `/public/parties/{partyId}`
+- **operationId:** `getParty`
+- **Objective:** Fetch a party profile and core attributes for a known party identifier.
+- **Request payload:** None.
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "getParty" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X GET "https://api.rhino-asset.com/public/parties/{partyId}"
+  ```
 
-- `operationId`: `listPartyAddresses`
+### `GET /parties/{partyId}/addresses`
 
-## `POST /parties/{partyId}/addresses`
+- **OpenAPI path:** `/public/parties/{partyId}/addresses`
+- **operationId:** `listPartyAddresses`
+- **Objective:** List all addresses on file for the party after onboarding has produced a party record.
+- **Request payload:** None.
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "listPartyAddresses" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X GET "https://api.rhino-asset.com/public/parties/{partyId}/addresses"
+  ```
 
-Add a new address to the party’s permanent address book post-onboarding.
+### `POST /parties/{partyId}/addresses`
 
-- `operationId`: `createPartyAddress`
+- **OpenAPI path:** `/public/parties/{partyId}/addresses`
+- **operationId:** `createPartyAddress`
+- **Objective:** Add a new address to the party's permanent address book post-onboarding.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `201 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "createPartyAddress" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/parties/{partyId}/addresses" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
-## `PATCH /parties/{partyId}/addresses/{addressId}`
+### `PATCH /parties/{partyId}/addresses/{addressId}`
 
-Update an existing party address (partial update).
-
-- `operationId`: `updatePartyAddress`
+- **OpenAPI path:** `/public/parties/{partyId}/addresses/{addressId}`
+- **operationId:** `updatePartyAddress`
+- **Objective:** Update an existing party address (partial update).
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    { "example_field": "value" }
+    ```
+- **Possible responses:**
+  - `200 Successful response`
+    - Example:
+      ```json
+      { "ok": true }
+      ```
+  - `501 Not implemented (placeholder handler)`
+    - Example:
+      ```json
+      { "error": "Not implemented", "operation_id": "updatePartyAddress" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X PATCH "https://api.rhino-asset.com/public/parties/{partyId}/addresses/{addressId}" \
+    -H "Content-Type: application/json" \
+    -d '{"example_field":"value"}'
+  ```
 
