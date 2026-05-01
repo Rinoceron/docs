@@ -1,109 +1,109 @@
 ---
 title: Onboarding
-description: Public Onboarding endpoints
+description: Onboarding endpoints
 ---
 
 # Onboarding
 
-Endpoints below are generated from backend route definitions and filtered to `/public/*` for this stage.
+Endpoints below are generated from backend route definitions for this stage.
 
-## `GET /public/onboarding-sessions/{sessionId}`
+## `GET /onboarding-sessions/{sessionId}`
 
 Retrieve the current onboarding session state for a given session identifier.
 
 - `operationId`: `getOnboardingSession`
 
-## `GET /public/onboarding-sessions/{sessionId}/addresses`
+## `GET /onboarding-sessions/{sessionId}/addresses`
 
 List addresses captured while the user is still in the onboarding session flow.
 
 - `operationId`: `listOnboardingAddresses`
 
-## `POST /public/onboarding-sessions/{sessionId}/addresses`
+## `POST /onboarding-sessions/{sessionId}/addresses`
 
 Add a new address record associated with the onboarding session before party finalization.
 
 - `operationId`: `createOnboardingAddress`
 
-## `PATCH /public/onboarding-sessions/{sessionId}/addresses/{addressId}`
+## `PATCH /onboarding-sessions/{sessionId}/addresses/{addressId}`
 
 Update an existing onboarding-session address (partial update).
 
 - `operationId`: `updateOnboardingAddress`
 
-## `PUT /public/onboarding-sessions/{sessionId}/applicant-profile`
+## `PUT /onboarding-sessions/{sessionId}/applicant-profile`
 
 Create or replace the applicant profile details collected during onboarding.
 
 - `operationId`: `upsertApplicantProfile`
 
-## `POST /public/onboarding-sessions/{sessionId}/contact/email`
+## `POST /onboarding-sessions/{sessionId}/contact/email`
 
 Submit or update the applicant email address as part of contact verification during onboarding.
 
 - `operationId`: `submitOnboardingEmail`
 
-## `POST /public/onboarding-sessions/{sessionId}/contact/email/retry`
+## `POST /onboarding-sessions/{sessionId}/contact/email/retry`
 
 Request a new email verification code or retry the email verification step.
 
 - `operationId`: `retryOnboardingEmailVerification`
 
-## `POST /public/onboarding-sessions/{sessionId}/contact/phone`
+## `POST /onboarding-sessions/{sessionId}/contact/phone`
 
 Submit or update the applicant phone number for SMS or call verification during onboarding.
 
 - `operationId`: `submitOnboardingPhone`
 
-## `POST /public/onboarding-sessions/{sessionId}/contact/phone/retry`
+## `POST /onboarding-sessions/{sessionId}/contact/phone/retry`
 
 Request a new phone verification code or retry the phone verification step.
 
 - `operationId`: `retryOnboardingPhoneVerification`
 
-## `GET /public/onboarding-sessions/{sessionId}/party`
+## `GET /onboarding-sessions/{sessionId}/party`
 
 Resolve and return the party record linked to the onboarding session, if one exists. After approval, partners may also receive the same payload via the party.ready outbound webhook.
 
 - `operationId`: `getPartyBySessionId`
 
-## `GET /public/onboarding-sessions/{sessionId}/requirements`
+## `GET /onboarding-sessions/{sessionId}/requirements`
 
 List outstanding onboarding requirements or checklist items the applicant must satisfy.
 
 - `operationId`: `listPendingOnboardingRequirements`
 
-## `POST /public/onboarding-sessions/{sessionId}/submit`
+## `POST /onboarding-sessions/{sessionId}/submit`
 
 Submit the completed onboarding package for internal review or underwriting handoff.
 
 - `operationId`: `submitOnboardingForReview`
 
-## `PUT /public/onboarding-sessions/{sessionId}/webhook`
+## `PUT /onboarding-sessions/{sessionId}/webhook`
 
 Register or update the HTTPS URL (and optional signing secret) where Rhino POSTs a party.ready event when internal onboarding is approved with a party_id.
 
 - `operationId`: `registerOnboardingSessionWebhook`
 
-## `GET /public/parties/{partyId}`
+## `GET /parties/{partyId}`
 
 Fetch a party profile and core attributes for a known party identifier.
 
 - `operationId`: `getParty`
 
-## `GET /public/parties/{partyId}/addresses`
+## `GET /parties/{partyId}/addresses`
 
 List all addresses on file for the party after onboarding has produced a party record.
 
 - `operationId`: `listPartyAddresses`
 
-## `POST /public/parties/{partyId}/addresses`
+## `POST /parties/{partyId}/addresses`
 
 Add a new address to the party’s permanent address book post-onboarding.
 
 - `operationId`: `createPartyAddress`
 
-## `PATCH /public/parties/{partyId}/addresses/{addressId}`
+## `PATCH /parties/{partyId}/addresses/{addressId}`
 
 Update an existing party address (partial update).
 
