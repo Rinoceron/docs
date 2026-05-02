@@ -1,0 +1,139 @@
+---
+title: "Authentication"
+description: "Partner API keys, minting, scopes, and how to call public endpoints."
+---
+
+## Overview
+
+Every request under **`/public/*`** must include a valid **partner API key**, except:
+
+- **`GET /health`** — no authentication (liveness check).
+- **`OPTIONS`** — CORS preflight (no API key).
+
+There is **no** anonymous access to onboarding or other public integration routes from this API: partners call **`/public/*`** with their key (for example server-side or from a trusted backend).
+
+## Base URL
+
+Production API host:
+
+```text
+https://api.rhino-asset.com
+```
+
+Paths in this documentation use the **`/public/...`** prefix from the site root (some clients also accept **`/public/v1/...`**, which the API normalizes to **`/public/...`**).
+
+## Sending the API key
+
+Use **one** of the following on each request:
+
+**Authorization (Bearer)**
+
+```http
+Authorization: Bearer rhino_live_a1b2c3d4_<64-character-hex-secret>
+```
+
+**Dedicated header**
+
+```http
+X-Api-Key: rhino_live_a1b2c3d4_<64-character-hex-secret>
+```
+
+Only strings that match the partner key shape are treated as API keys (tokens starting with **`rhino_`**). Other **`Authorization: Bearer`** values are ignored for this purpose.
+
+### Key format
+
+Issued keys follow:
+
+```text
+rhino_<environment>_<8 hex characters>_<64 hex characters>
+```
+
+Example environment segment: **`live`**. The middle segment is unique per key; the final segment is secret material and must be stored securely.
+
+## Minting a key (operators / backend only)
+
+New keys are created with **`POST /public/partner/api-keys`**. This endpoint is **not** for end-user browsers.
+
+**Headers**
+
+- **`X-Partner-Mint-Key`** — must match the Worker secret **`PARTNER_MINT_SECRET`** (configured in your deployment). Treat this like a root credential: **never** expose it in frontends, mobile apps, or public repos.
+
+**Body (JSON)**
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| **`party_id`** | Yes | UUID of the party this client belongs to. |
+| **`client_name`** | No | Label for the API client record (default is derived from environment). |
+| **`environment`** | No | e.g. **`live`** (default **`live`**). |
+| **`scopes`** | No | Array of scope strings; see [Scopes](#scopes). Defaults include **`partner:api`** and **`keys:manage`**. |
+
+**Example**
+
+```bash
+curl -sS -X POST "https://api.rhino-asset.com/public/partner/api-keys" \
+  -H "Content-Type: application/json" \
+  -H "X-Partner-Mint-Key: YOUR_PARTNER_MINT_SECRET" \
+  -d '{"party_id":"00000000-0000-4000-8000-000000000001"}'
+```
+
+**Response**
+
+On success, the JSON includes **`api_key`** exactly **once**. Copy it to a password manager or secret store immediately; it cannot be retrieved again from the API.
+
+## Scopes
+
+| Scope | Purpose |
+|-------|---------|
+| **`partner:api`** | Call normal integration routes under **`/public/*`** (onboarding, parties, loans, etc.). |
+| **`keys:manage`** | List and revoke keys for your API client (`GET` / `DELETE` partner key routes below). |
+
+Minted keys default to both scopes unless you pass a custom **`scopes`** array when minting.
+
+Wildcards such as **`*`** or **`partner:*`** are honored by the server when present in stored scopes.
+
+## Managing keys
+
+These routes require a valid partner API key with **`keys:manage`**.
+
+**List keys (masked)**
+
+```http
+GET /public/partner/api-keys
+```
+
+Returns metadata such as **`key_prefix`**, **`status`**, **`created_at`**, **`revoked_at`** — never the full secret.
+
+**Revoke a key**
+
+```http
+DELETE /public/partner/api-keys/{apiKeyId}
+```
+
+Use the **`api_key_id`** (UUID) returned at mint time or from the list endpoint.
+
+## Party-scoped URLs
+
+For paths like **`/public/parties/{partyId}/...`**, the **`partyId`** in the URL must match the **`party_id`** tied to your API key. Otherwise the API responds with **`403`** (`party_mismatch`).
+
+## Internal APIs
+
+Routes under **`/internal/*`** are for internal or service-to-service use. **Partner API keys are not accepted** there; they use separate internal controls. Do not point partner integrations at **`/internal/*`**.
+
+## Postman
+
+Suggested environment variables:
+
+| Variable | Example use |
+|----------|----------------|
+| **`base_url`** | `https://api.rhino-asset.com` |
+| **`api_key`** | Full **`rhino_...`** string for **Authorization** or **X-Api-Key** on almost all requests |
+| **`partner_mint_secret`** | Only for **Mint key** requests (**`X-Partner-Mint-Key`**) — keep out of shared collections |
+
+Example authorized request:
+
+- Method + URL: **`GET`** `{{base_url}}/public/parties/{{party_id}}`
+- Headers: **`Authorization`** `Bearer {{api_key}}`
+
+## Next steps
+
+- Stage-specific endpoints: start with [Onboarding](/api-reference/rhino/stages/onboarding), then Application, Servicing, etc., from the [API overview](/api-reference/rhino/index).

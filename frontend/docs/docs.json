@@ -50,6 +50,7 @@
             "group": "Rhino API",
             "pages": [
               "api-reference/rhino/index",
+              "api-reference/rhino/authentication",
               "api-reference/rhino/stages/onboarding",
               "api-reference/rhino/stages/application",
               "api-reference/rhino/stages/servicing",

@@ -1,9 +1,9 @@
 [
   {
-    "path": "/internal/onboarding-sessions",
+    "path": "/public/onboarding-sessions",
     "method": "POST",
     "operationId": "createOnboardingSession",
-    "tag": "Internal - Onboarding",
+    "tag": "Public - Onboarding",
     "stage": "onboarding"
   },
   {

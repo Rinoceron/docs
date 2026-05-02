@@ -87,11 +87,21 @@ import { getDelinquencyCaseInternal } from "./routes/delinquency/getDelinquencyC
 import { patchDelinquencyCaseInternal } from "./routes/delinquency/patchDelinquencyCaseInternal";
 import { listCommunicationsInternal } from "./routes/delinquency/listCommunicationsInternal";
 import { createCommunicationInternal } from "./routes/delinquency/createCommunicationInternal";
+import {
+  authorizePartnerPublicRequest,
+  injectPartnerContext,
+  logPublicPartnerRequest,
+  mintPartnerApiKey,
+  listPartnerApiKeys,
+  revokePartnerApiKey,
+  type PartnerContext,
+  type PartnerAuthEnv,
+} from "../../partners/partnerApiAuth";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "https://rhino-asset.com",
   "Access-Control-Allow-Methods": "GET,POST,PUT,PATCH,DELETE,OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type,Authorization",
+  "Access-Control-Allow-Headers": "Content-Type,Authorization,X-Api-Key,X-Partner-Mint-Key",
 };
 
 type RouteDefinition = {
@@ -101,7 +111,10 @@ type RouteDefinition = {
 };
 
 const routes: RouteDefinition[] = [
-  { method: "POST", path: "/internal/onboarding-sessions", handler: createOnboardingSession },
+  { method: "POST", path: "/public/partner/api-keys", handler: mintPartnerApiKey },
+  { method: "GET", path: "/public/partner/api-keys", handler: listPartnerApiKeys },
+  { method: "DELETE", path: "/public/partner/api-keys/{apiKeyId}", handler: revokePartnerApiKey },
+  { method: "POST", path: "/public/onboarding-sessions", handler: createOnboardingSession },
   { method: "GET", path: "/public/onboarding-sessions/{sessionId}", handler: getOnboardingSession },
   { method: "POST", path: "/public/onboarding-sessions/{sessionId}/contact/email", handler: submitOnboardingEmail },
   { method: "POST", path: "/public/onboarding-sessions/{sessionId}/contact/email/retry", handler: retryOnboardingEmailVerification },
@@ -235,10 +248,17 @@ const compiledRoutes = routes.map((route) => ({
   regex: toPathRegex(route.path),
 }));
 
+function applyCors(res: Response): Response {
+  const headers = new Headers(res.headers);
+  Object.entries(corsHeaders).forEach(([key, value]) => headers.set(key, value));
+  return new Response(res.body, { status: res.status, headers });
+}
+
 export default {
-  async fetch(request: Request, env: unknown): Promise<Response> {
+  async fetch(request: Request, env: unknown, ctx?: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const pathname = canonicalizeApiPath(url.pathname);
+    const startedAt = Date.now();
 
     if (request.method === "OPTIONS") {
       return new Response(null, { status: 204, headers: corsHeaders });
@@ -254,6 +274,27 @@ export default {
       });
     }
 
+    let req = request;
+    let partnerCtx: PartnerContext | null = null;
+
+    const skipPartnerKeyAuth =
+      request.method === "POST" && pathname === "/public/partner/api-keys";
+
+    if (pathname.startsWith("/public") && !skipPartnerKeyAuth) {
+      const auth = await authorizePartnerPublicRequest(
+        request,
+        env as PartnerAuthEnv,
+        request.method,
+        pathname,
+        ctx,
+      );
+      if (auth instanceof Response) {
+        return applyCors(auth);
+      }
+      partnerCtx = auth;
+      req = injectPartnerContext(request, auth);
+    }
+
     const route = compiledRoutes.find(
       (candidate) => candidate.method === request.method && candidate.regex.test(pathname),
     );
@@ -265,14 +306,24 @@ export default {
       });
     }
 
-    const res = await route.handler(request, env);
-    const headers = new Headers(res.headers);
+    const res = await route.handler(req, env);
 
-    Object.entries(corsHeaders).forEach(([key, value]) => headers.set(key, value));
+    if (partnerCtx && pathname.startsWith("/public")) {
+      logPublicPartnerRequest(
+        env as PartnerAuthEnv,
+        partnerCtx,
+        {
+          request,
+          method: request.method,
+          pathname,
+          status: res.status,
+          startedAt,
+          error_code: res.status >= 400 ? `http_${res.status}` : null,
+        },
+        ctx,
+      );
+    }
 
-    return new Response(res.body, {
-      status: res.status,
-      headers,
-    });
+    return applyCors(res);
   },
 };

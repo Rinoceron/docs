@@ -3,13 +3,6 @@ export async function createOnboardingSession(request: Request, env: any) {
       const body = (await request.json()) as Record<string, unknown>;
   
       // Basic request validation
-      if (body?.applicant_type !== "BUSINESS") {
-        return new Response(JSON.stringify({ error: "Only business supported" }), {
-          status: 400,
-          headers: { "Content-Type": "application/json" },
-        });
-      }
-  
       if (!body?.country_of_incorporation || !body?.locale) {
         return new Response(
           JSON.stringify({ error: "country_of_incorporation and locale are required" }),
@@ -22,7 +15,7 @@ export async function createOnboardingSession(request: Request, env: any) {
   
       const session = {
         session_id: crypto.randomUUID(),
-        type: "business",
+        type: body.type,
         country_of_incorporation: body.country_of_incorporation,
         entry_channel: body.entry_channel || "unknown",
         locale: body.locale,
