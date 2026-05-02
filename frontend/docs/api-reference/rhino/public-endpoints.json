@@ -1,4 +1,105 @@
-[
+[{
+  "operationId": "createOnboardingSession",
+  "method": "POST",
+  "path": "/public/onboarding-sessions",
+  "stage": "onboarding",
+  "tag": "Public - Onboarding",
+  "description": "Create a new onboarding session and return the created session payload.",
+  "requestBody": {
+    "required": true,
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "country_of_incorporation": {
+          "type": "string"
+        },
+        "entry_channel": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "country_of_incorporation",
+        "locale"
+      ],
+      "additionalProperties": true
+    },
+    "example": {
+      "type": "business",
+      "country_of_incorporation": "US",
+      "entry_channel": "partner_portal",
+      "locale": "en-US"
+    }
+  },
+  "responses": [
+    {
+      "status": 201,
+      "description": "Onboarding session created",
+      "schema": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "example": {
+        "session_id": "11111111-1111-4111-8111-111111111111",
+        "type": "business",
+        "country_of_incorporation": "US",
+        "entry_channel": "partner_portal",
+        "locale": "en-US",
+        "status": "IN_PROGRESS",
+        "current_step": "PHONE_VERIFICATION",
+        "created_at": "2026-05-01T00:00:00.000Z",
+        "updated_at": "2026-05-01T00:00:00.000Z"
+      }
+    },
+    {
+      "status": 400,
+      "description": "Validation or malformed request",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "additionalProperties": true
+      },
+      "example": {
+        "error": "country_of_incorporation and locale are required"
+      }
+    },
+    {
+      "status": 500,
+      "description": "Database error while creating session",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "additionalProperties": true
+      },
+      "example": {
+        "error": "DB error",
+        "detail": "Failed to create onboarding session"
+      }
+    }
+  ]
+},
   {
     "operationId": "getOnboardingSession",
     "method": "GET",

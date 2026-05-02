@@ -1,15 +1,12 @@
 ---
 title: Onboarding
-description: Onboarding endpoints and integration flow
+description: Onboarding endpoints and integration flow. This page mirrors the onboarding endpoints in `openapi.public.json` in a human-readable flow.
+
 ---
 
-# Onboarding
+## Suggested Flow
 
-This page mirrors the onboarding endpoints in `openapi.public.json` in a human-readable flow.
-
-## Onboarding Flow
-
-1. Retrieve onboarding session details.
+1. Create onboarding session, or retreive details of a previously created session
 2. Capture or update applicant contact details.
 3. Capture applicant profile and addresses.
 4. Review pending requirements.
@@ -20,6 +17,53 @@ This page mirrors the onboarding endpoints in `openapi.public.json` in a human-r
 ---
 
 ## Session
+
+### `POST /onboarding-sessions`
+
+- **OpenAPI path:** `/public/onboarding-sessions`
+- **operationId:** `createOnboardingSession`
+- **Objective:** Create a new onboarding session and return the created session payload.
+- **Request payload:** Required JSON body.
+  - Example:
+    ```json
+    {
+      "type": "business",
+      "country_of_incorporation": "US",
+      "entry_channel": "partner_portal",
+      "locale": "en-US"
+    }
+    ```
+- **Possible responses:**
+  - `201 Onboarding session created`
+    - Example:
+      ```json
+      {
+        "session_id": "11111111-1111-4111-8111-111111111111",
+        "type": "business",
+        "country_of_incorporation": "US",
+        "entry_channel": "partner_portal",
+        "locale": "en-US",
+        "status": "IN_PROGRESS",
+        "current_step": "PHONE_VERIFICATION",
+        "created_at": "2026-05-01T00:00:00.000Z",
+        "updated_at": "2026-05-01T00:00:00.000Z"
+      }
+      ```
+  - `400 Validation or malformed request`
+    - Example:
+      ```json
+      { "error": "country_of_incorporation and locale are required" }
+      ```
+  - `500 Database error while creating session`
+    - Example:
+      ```json
+      { "error": "DB error", "detail": "Failed to create onboarding session" }
+      ```
+- **Proper use example:**
+  ```bash
+  curl -X POST "https://api.rhino-asset.com/public/onboarding-sessions" \
+    -H "Content-Type: application/json" \
+    -d '{"type":"business","country_of_incorporation":"US","entry_channel":"partner_portal","locale":"en-US"}'
 
 ### `GET /onboarding-sessions/{sessionId}`
 
