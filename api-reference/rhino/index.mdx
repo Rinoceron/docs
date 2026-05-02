@@ -1,17 +1,7 @@
 ---
-title: "Rhino API"
+title: "Rhino Asset Capital API"
 description: "Public endpoints grouped by business stage."
 ---
-
-# Rhino API Reference
-
-This reference exposes only public endpoints under `/public/*`.
-
-## Principles
-
-- Internal routes are excluded from this site.
-- Stage pages map directly to Rhino operating stages.
-- OpenAPI source is maintained in `api-reference/rhino/openapi.public.json`.
 
 ## Stage order
 
@@ -21,25 +11,3 @@ This reference exposes only public endpoints under `/public/*`.
 4. [Delinquency](/api-reference/rhino/stages/delinquency)
 5. [Misc Services](/api-reference/rhino/stages/misc-services)
 
-## Create party
-
-`POST /public/parties` creates the customer `party` record after onboarding approval.
-
-### Request contract
-
-```json
-{
-  "type": "person | business",
-  "legal_name": "string",
-  "phone": "string",
-  "email": "string"
-}
-```
-
-### Success response
-
-```json
-{
-  "party_id": "uuid"
-}
-```
