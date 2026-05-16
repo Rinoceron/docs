@@ -35,7 +35,7 @@ List all loan applications associated with a given party.
 
 ## `GET /public/parties/{partyId}/available-loan-products`
 
-List loan products this party is eligible to apply for, typically filtered by rules or catalog.
+List loan products available in the catalog for this party (MVP: returns all active `loan_product` rows; per-party eligibility rules are not applied yet).
 
 - `operationId`: `listAvailableLoanProductsForParty`
 

@@ -1768,6 +1768,7 @@
       "get": {
         "operationId": "listAvailableLoanProductsForParty",
         "summary": "GET available-loan-products",
+        "description": "Returns the full loan_product catalog (MVP). Per-party eligibility filtering is not applied yet.",
         "tags": [
           "Application"
         ],

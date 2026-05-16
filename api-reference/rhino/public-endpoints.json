@@ -1515,7 +1515,7 @@
     "path": "/public/parties/{partyId}/available-loan-products",
     "stage": "application",
     "tag": "Public - Loan Product",
-    "description": "List loan products this party is eligible to apply for, typically filtered by rules or catalog.",
+    "description": "Returns the full loan_product catalog (MVP). Per-party eligibility filtering is not applied yet.",
     "requestBody": null,
     "responses": [
       {
